@@ -1,0 +1,3 @@
+include ':AndroidWoocommerceSDK'
+include ':app'
+rootProject.name = "WoocommerceSDK"
