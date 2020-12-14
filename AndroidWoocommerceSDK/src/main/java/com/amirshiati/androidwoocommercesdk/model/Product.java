@@ -1,10 +1,14 @@
 package com.amirshiati.androidwoocommercesdk.model;
 
+import com.amirshiati.androidwoocommercesdk.enums.ProductBackOrdered;
 import com.amirshiati.androidwoocommercesdk.enums.ProductCatalogVisibility;
 import com.amirshiati.androidwoocommercesdk.enums.ProductStatus;
+import com.amirshiati.androidwoocommercesdk.enums.ProductStockStatus;
 import com.amirshiati.androidwoocommercesdk.enums.ProductType;
+import com.amirshiati.androidwoocommercesdk.enums.TaxStatus;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Product implements Serializable {
@@ -32,8 +36,36 @@ public class Product implements Serializable {
     private long totalSales;
     private boolean virtual;
     private boolean downloadable;
+    private ArrayList<ProductDownloadProperties> productDownloadProperties;
+    private long downloadLimit;
+    private long downloadExpiry;
+    private String externalUrl;
+    private String buttonText;
+    private TaxStatus taxStatus;
+    private String taxClass;
+    private boolean manageStock;
+    private long stockQuantity;
+    private ProductStockStatus stockStatus;
+    private ProductBackOrdered backOrders;
+    private boolean backOrdersAllowed;
+    private boolean backOrdered;
+    private boolean soldIndividually;
+    private String weight;
+    private ProductDimensions dimensions;
+    private boolean shippingRequired;
+    private boolean shippingTaxable;
+    private String shippingClass;
+    private long shippingClassId;
+    private boolean reviewsAllowed;
+    private String averageRating;
+    private long ratingCount;
+    private ArrayList<Long> relatedIds;
+    private ArrayList<Long> upSellIds;
+    private ArrayList<Long> crossSellIds;
+    private long parentId;
+    private String purchaseNote;
 
-    public Product(Long id, String name, String slug, String permaLink, Date dateCreated, Date dateModified, ProductType type, ProductStatus status, boolean featured, ProductCatalogVisibility catalogVisibility, String description, String shortDescription, String sku, String price, String regularPrice, String salePrice, Date onSaleFrom, Date onSaleTo, String priceHtml, boolean onSale, boolean purchasable, long totalSales, boolean virtual, boolean downloadable) {
+    public Product(Long id, String name, String slug, String permaLink, Date dateCreated, Date dateModified, ProductType type, ProductStatus status, boolean featured, ProductCatalogVisibility catalogVisibility, String description, String shortDescription, String sku, String price, String regularPrice, String salePrice, Date onSaleFrom, Date onSaleTo, String priceHtml, boolean onSale, boolean purchasable, long totalSales, boolean virtual, boolean downloadable, ArrayList<ProductDownloadProperties> productDownloadProperties, long downloadLimit, long downloadExpiry, String externalUrl, String buttonText, TaxStatus taxStatus, String taxClass, boolean manageStock, long stockQuantity, ProductStockStatus stockStatus, ProductBackOrdered backOrders, boolean backOrdersAllowed, boolean backOrdered, boolean soldIndividually, String weight, ProductDimensions dimensions, boolean shippingRequired, boolean shippingTaxable, String shippingClass, long shippingClassId, boolean reviewsAllowed, String averageRating, long ratingCount, ArrayList<Long> relatedIds, ArrayList<Long> upSellIds, ArrayList<Long> crossSellIds, long parentId, String purchaseNote) {
         this.id = id;
         this.name = name;
         this.slug = slug;
@@ -58,6 +90,34 @@ public class Product implements Serializable {
         this.totalSales = totalSales;
         this.virtual = virtual;
         this.downloadable = downloadable;
+        this.productDownloadProperties = productDownloadProperties;
+        this.downloadLimit = downloadLimit;
+        this.downloadExpiry = downloadExpiry;
+        this.externalUrl = externalUrl;
+        this.buttonText = buttonText;
+        this.taxStatus = taxStatus;
+        this.taxClass = taxClass;
+        this.manageStock = manageStock;
+        this.stockQuantity = stockQuantity;
+        this.stockStatus = stockStatus;
+        this.backOrders = backOrders;
+        this.backOrdersAllowed = backOrdersAllowed;
+        this.backOrdered = backOrdered;
+        this.soldIndividually = soldIndividually;
+        this.weight = weight;
+        this.dimensions = dimensions;
+        this.shippingRequired = shippingRequired;
+        this.shippingTaxable = shippingTaxable;
+        this.shippingClass = shippingClass;
+        this.shippingClassId = shippingClassId;
+        this.reviewsAllowed = reviewsAllowed;
+        this.averageRating = averageRating;
+        this.ratingCount = ratingCount;
+        this.relatedIds = relatedIds;
+        this.upSellIds = upSellIds;
+        this.crossSellIds = crossSellIds;
+        this.parentId = parentId;
+        this.purchaseNote = purchaseNote;
     }
 
     public Long getId() {

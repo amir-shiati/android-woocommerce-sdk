@@ -7,6 +7,9 @@ import java.util.Date;
 public class Utils {
 
     public static Date stringToDate(String date) {
+        if (stringEmpty(date))
+            return null;
+
         Date result = null;
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
         try {
@@ -17,5 +20,9 @@ public class Utils {
         }
 
         return result;
+    }
+
+    public static boolean stringEmpty(String str) {
+        return str == null || str.equals("") || str.length() <= 0;
     }
 }
