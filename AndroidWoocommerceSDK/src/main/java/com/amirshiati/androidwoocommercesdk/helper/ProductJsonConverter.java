@@ -154,7 +154,7 @@ public class ProductJsonConverter {
         for (int i = 0; i < toGet.getJSONArray("downloads").length(); i++) {
             JSONObject object = toGet.getJSONArray("downloads").getJSONObject(i);
             result.add(new ProductDownloadProperties(
-                    object.getLong("id"),
+                    getString(toGet, "id"),
                     getString(object, "name"),
                     getString(object, "file"))
             );

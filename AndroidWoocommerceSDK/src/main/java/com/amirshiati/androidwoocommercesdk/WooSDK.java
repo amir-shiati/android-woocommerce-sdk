@@ -3,6 +3,7 @@ package com.amirshiati.androidwoocommercesdk;
 
 import android.content.Context;
 
+import com.amirshiati.androidwoocommercesdk.enums.ProductManagerType;
 import com.amirshiati.androidwoocommercesdk.helper.ProductJsonConverter;
 import com.amirshiati.androidwoocommercesdk.helper.UriBuilder;
 import com.amirshiati.androidwoocommercesdk.helper.Volley;
@@ -28,8 +29,6 @@ public class WooSDK {
 
     private Volley volley;
 
-    public ProductManager productManager;
-
     public WooSDK(Context context, String ckKey, String csKey, String domainName) {
         this.context = context;
         this.ckKey = ckKey;
@@ -37,7 +36,10 @@ public class WooSDK {
         this.domainName = domainName;
 
         volley = new Volley(context, ckKey, csKey, timeOut);
-        productManager = new ProductManager(domainName, volley);
+    }
+
+    public ProductManager getProducts() {
+        return new ProductManager(UriBuilder.getProducts(domainName), ProductManagerType.GETPRODUCTS, volley);
     }
 
 }

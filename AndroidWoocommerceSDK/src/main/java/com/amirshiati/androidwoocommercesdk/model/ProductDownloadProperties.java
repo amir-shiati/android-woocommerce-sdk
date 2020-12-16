@@ -4,21 +4,21 @@ import java.io.Serializable;
 
 public class ProductDownloadProperties implements Serializable {
 
-    private Long id;
+    private String id;
     private String name;
     private String fileUrl;
 
-    public ProductDownloadProperties(Long id, String name, String fileUrl) {
+    public ProductDownloadProperties(String id, String name, String fileUrl) {
         this.id = id;
         this.name = name;
         this.fileUrl = fileUrl;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

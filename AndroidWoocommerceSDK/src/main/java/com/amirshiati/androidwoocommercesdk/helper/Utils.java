@@ -23,6 +23,6 @@ public class Utils {
     }
 
     public static boolean stringEmpty(String str) {
-        return str == null || str.equals("") || str.length() <= 0;
+        return str == null || str.equals("") || str.isEmpty() || str.length() <= 0;
     }
 }

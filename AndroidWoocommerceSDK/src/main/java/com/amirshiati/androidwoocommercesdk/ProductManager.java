@@ -1,7 +1,12 @@
 package com.amirshiati.androidwoocommercesdk;
 
+import android.net.Uri;
+
+import com.amirshiati.androidwoocommercesdk.enums.Order;
+import com.amirshiati.androidwoocommercesdk.enums.OrderBy;
+import com.amirshiati.androidwoocommercesdk.enums.ProductManagerType;
 import com.amirshiati.androidwoocommercesdk.helper.ProductJsonConverter;
-import com.amirshiati.androidwoocommercesdk.helper.UriBuilder;
+import com.amirshiati.androidwoocommercesdk.helper.Utils;
 import com.amirshiati.androidwoocommercesdk.helper.Volley;
 import com.amirshiati.androidwoocommercesdk.interfaces.OnGetJsonArrayFinished;
 import com.amirshiati.androidwoocommercesdk.interfaces.OnGetProductsFinished;
@@ -16,20 +21,116 @@ import java.util.ArrayList;
 
 public class ProductManager {
 
-    private String domainName;
+    private Uri.Builder builder;
+    private ProductManagerType type;
     private Volley volley;
 
-    public ProductManager(String domainName, Volley volley) {
-        this.domainName = domainName;
+    private OnGetProductsFinished onGetProductsFinished;
+    private int page = 1;
+    private int perPage = 10;
+    private String search = "";
+    private Order order;
+    private OrderBy orderBy;
+
+
+    public ProductManager(Uri.Builder builder, ProductManagerType type, Volley volley) {
+        this.builder = builder;
+        this.type = type;
         this.volley = volley;
     }
 
-    public void getProducts(long page, long perPage, OnGetProductsFinished onGetProductFinished) {
+    public ProductManager addCallBack(OnGetProductsFinished onGetProductFinished) {
+        this.onGetProductsFinished = onGetProductFinished;
+        return this;
+    }
+
+    public ProductManager setPage(int page) {
+        this.page = page;
+        return this;
+    }
+
+    public ProductManager setPerPage(int perPage) {
+        this.perPage = perPage;
+        return this;
+    }
+
+    public ProductManager setOrder(Order order) {
+        this.order = order;
+        return this;
+    }
+
+    public ProductManager setOrderBy(OrderBy orderBy) {
+        this.orderBy = orderBy;
+        return this;
+    }
+
+    public ProductManager search(String search) {
+        this.search = search;
+        return this;
+    }
+
+    public void start() {
+        switch (type) {
+            case GETPRODUCTS:
+                setBuilder(this);
+                getProducts(this);
+                break;
+
+            default:
+                return;
+        }
+    }
+
+    private void setBuilder(final ProductManager productManager) {
+        builder.appendQueryParameter("page", String.valueOf(productManager.page));
+        builder.appendQueryParameter("per_page", String.valueOf(productManager.perPage));
+
+        if (!Utils.stringEmpty(productManager.search))
+            builder.appendQueryParameter("search", productManager.search);
+
+        if (productManager.order != null)
+            builder.appendQueryParameter("order", productManager.setBuilderOrder(productManager.order));
+
+        if (productManager.orderBy != null)
+            builder.appendQueryParameter("orderby", productManager.setBuilderOrderBy(productManager.orderBy));
+
+    }
+
+    private String setBuilderOrder(Order order) {
+        switch (order) {
+            case ASC:
+                return "asc";
+
+            default:
+                return "desc";
+        }
+    }
+
+    private String setBuilderOrderBy(OrderBy orderBy) {
+        switch (orderBy) {
+            case ID:
+                return "id";
+
+            case SLUG:
+                return "slug";
+
+            case TITLE:
+                return "title";
+
+            case INCLUDE:
+                return "include";
+
+            default:
+                return "date";
+        }
+    }
+
+    private void getProducts(final ProductManager productManager) {
         final ArrayList<Product> result = new ArrayList<Product>();
 
         volley.basicAuthJsonArrayReq(
                 Request.Method.GET,
-                UriBuilder.getProducts(domainName, page, perPage),
+                builder.build().toString(),
                 null,
                 new OnGetJsonArrayFinished() {
                     @Override
@@ -38,10 +139,12 @@ public class ProductManager {
                             for (int i = 0; i < response.length(); i++)
                                 result.add(ProductJsonConverter.jsonToProduct(response.getJSONObject(i)));
 
-                            onGetProductFinished.onSuccess(result);
+                            if (productManager.onGetProductsFinished != null)
+                                productManager.onGetProductsFinished.onSuccess(result);
 
                         } catch (Exception e) {
-                            onGetProductFinished.onFail(e.getMessage());
+                            if (productManager.onGetProductsFinished != null)
+                                productManager.onGetProductsFinished.onFail(e.getMessage());
                         }
                     }
 
@@ -58,8 +161,11 @@ public class ProductManager {
                             }
                         }
 
-                        onGetProductFinished.onFail(body);
+                        if (productManager.onGetProductsFinished != null)
+                            productManager.onGetProductsFinished.onFail(body);
                     }
                 });
     }
 }
+
+
