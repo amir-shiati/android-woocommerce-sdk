@@ -23,7 +23,7 @@ Step 2. Add the dependency
 It's really simple:
 ```java
         WooSDK wooSDK = new WooSDK(
-                this,
+                context,
                 "ck_key",
                 "cs_key",
                 "domain"
