@@ -8,7 +8,9 @@ import android.util.Log;
 import com.amirshiati.androidwoocommercesdk.WooSDK;
 import com.amirshiati.androidwoocommercesdk.enums.Order;
 import com.amirshiati.androidwoocommercesdk.enums.OrderBy;
+import com.amirshiati.androidwoocommercesdk.interfaces.OnGetProductFinished;
 import com.amirshiati.androidwoocommercesdk.interfaces.OnGetProductsFinished;
+import com.amirshiati.androidwoocommercesdk.model.Image;
 import com.amirshiati.androidwoocommercesdk.model.Product;
 
 import java.util.ArrayList;
@@ -29,25 +31,41 @@ public class MainActivity extends AppCompatActivity {
         );
 
         wooSDK.getProducts()
-                .setPage(3)
-                .setPerPage(25)
-                .search("Hoodie")
-                .setOrder(Order.ASC)
-                .setOrderBy(OrderBy.SLUG)
+                .setPage(1)
+                .setPerPage(100)
 
-                .addCallBack(new OnGetProductsFinished() {
+                .addGetProductsCallBack(new OnGetProductsFinished() {
                     @Override
                     public void onSuccess(ArrayList<Product> products) {
                         for (Product product : products)
-                            Log.i(TAG, product.getName());
+                            if (product.getId() == 494)
+                                for (Image image : product.getImages())
+                                    Log.i(TAG, image.getSrc());
                     }
 
                     @Override
                     public void onFail(String message) {
+                        Log.i(TAG, "error");
                         Log.i(TAG, message);
                     }
                 })
 
+                .start();
+
+        wooSDK.getProduct(494)
+                .addGetProductCallBack(new OnGetProductFinished() {
+                    @Override
+                    public void onSuccess(Product product) {
+                        for (Image image : product.getImages())
+                            Log.i(TAG, image.getSrc());
+                    }
+
+                    @Override
+                    public void onFail(String message) {
+                        Log.i(TAG, "error");
+                        Log.i(TAG, message);
+                    }
+                })
                 .start();
 
     }

@@ -42,4 +42,8 @@ public class WooSDK {
         return new ProductManager(UriBuilder.getProducts(domainName), ProductManagerType.GETPRODUCTS, volley);
     }
 
+    public ProductManager getProduct(long productID) {
+        return new ProductManager(UriBuilder.getProduct(domainName, productID), ProductManagerType.GETPRODUCT, volley);
+    }
+
 }

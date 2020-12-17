@@ -5,14 +5,18 @@ import android.os.Build;
 import android.util.Base64;
 
 import com.amirshiati.androidwoocommercesdk.interfaces.OnGetJsonArrayFinished;
+import com.amirshiati.androidwoocommercesdk.interfaces.OnGetJsonObjectFinished;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,5 +75,47 @@ public class Volley {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueueSingleton.getInstance(context).addToRequestQueue(jsonArrayRequest);
+    }
+
+    public void basicAuthJsonObjReq(int method, String url, JSONObject jsonObject, final OnGetJsonObjectFinished onGetJsonObjectFinished) {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(method,
+                url,
+                jsonObject,
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        onGetJsonObjectFinished.onSuccess(response);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                onGetJsonObjectFinished.onFail(error);
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
+                    params.put("Authorization",
+                            String.format("Basic %s", Base64.encodeToString(String.format("%s:%s", ckKey, csKey).getBytes(), Base64.NO_WRAP)));
+                }
+                params.put("username", ckKey);
+                params.put("password", csKey);
+                return params;
+            }
+
+            @Override
+            public Request.Priority getPriority() {
+                return Priority.IMMEDIATE;
+            }
+        };
+
+        jsonObjectRequest.setRetryPolicy(new
+                DefaultRetryPolicy(
+                timeOut,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueueSingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
     }
 }

@@ -1,12 +1,17 @@
 package com.amirshiati.androidwoocommercesdk.helper;
 
+import android.util.Log;
+
 import com.amirshiati.androidwoocommercesdk.enums.ProductBackOrdered;
 import com.amirshiati.androidwoocommercesdk.enums.ProductCatalogVisibility;
 import com.amirshiati.androidwoocommercesdk.enums.ProductStatus;
 import com.amirshiati.androidwoocommercesdk.enums.ProductStockStatus;
 import com.amirshiati.androidwoocommercesdk.enums.ProductType;
 import com.amirshiati.androidwoocommercesdk.enums.TaxStatus;
+import com.amirshiati.androidwoocommercesdk.model.Attribute;
 import com.amirshiati.androidwoocommercesdk.model.Category;
+import com.amirshiati.androidwoocommercesdk.model.DefaultAttribute;
+import com.amirshiati.androidwoocommercesdk.model.Image;
 import com.amirshiati.androidwoocommercesdk.model.Product;
 import com.amirshiati.androidwoocommercesdk.model.ProductDimensions;
 import com.amirshiati.androidwoocommercesdk.model.ProductDownloadProperties;
@@ -20,84 +25,158 @@ import java.util.ArrayList;
 
 public class ProductJsonConverter {
 
-    public static Product jsonToProduct(JSONObject toConvert) throws JSONException {
-        return new Product(getLong(toConvert, "id"),
-                getString(toConvert, "name"),
-                getString(toConvert, "slug"),
-                getString(toConvert, "permalink"),
-                //get dates
-                Utils.stringToDate(getString(toConvert, "date_created")),
-                Utils.stringToDate(getString(toConvert, "date_modified")),
-                //get type
-                getProductType(toConvert),
-                //get status
-                getProductStatus(toConvert),
-                //get featured
-                toConvert.getBoolean("featured"),
-                //get catalog visibility
-                getProductCatalogVisibility(toConvert),
-                //get strings
-                getString(toConvert, "description"),
-                getString(toConvert, "short_description"),
-                getString(toConvert, "sku"),
-                getString(toConvert, "price"),
-                getString(toConvert, "regular_price"),
-                getString(toConvert, "sale_price"),
-                //get sales dates
-                Utils.stringToDate(getString(toConvert, "date_on_sale_from")),
-                Utils.stringToDate(getString(toConvert, "date_on_sale_to")),
-                //--
-                getString(toConvert, "price_html"),
-                toConvert.getBoolean("on_sale"),
-                toConvert.getBoolean("purchasable"),
-                getLong(toConvert, "total_sales"),
-                toConvert.getBoolean("virtual"),
-                toConvert.getBoolean("downloadable"),
-                //get downloads object
-                getDownloadProperties(toConvert),
-                //--
-                getLong(toConvert, "download_limit"),
-                getLong(toConvert, "download_expiry"),
-                getString(toConvert, "external_url"),
-                getString(toConvert, "button_text"),
-                getProductTaxStatus(toConvert),
-                getString(toConvert, "tax_class"),
-                toConvert.getBoolean("manage_stock"),
-                getLong(toConvert, "stock_quantity"),
-                //get stock status
-                getProductStockStatus(toConvert),
-                //get back ordered
-                getProductBackOrdered(toConvert),
-                //--
-                toConvert.getBoolean("backorders_allowed"),
-                toConvert.getBoolean("backordered"),
-                toConvert.getBoolean("sold_individually"),
-                getString(toConvert, "weight"),
-                //get dimensions
-                getProductDimensions(toConvert),
-                //--
-                toConvert.getBoolean("shipping_required"),
-                toConvert.getBoolean("shipping_taxable"),
-                getString(toConvert, "shipping_class"),
-                getLong(toConvert, "shipping_class_id"),
-                toConvert.getBoolean("reviews_allowed"),
-                getString(toConvert, "average_rating"),
-                getLong(toConvert, "rating_count"),
-                //get related ids
-                getLongArray(toConvert, "related_ids"),
-                getLongArray(toConvert, "upsell_ids"),
-                getLongArray(toConvert, "cross_sell_ids"),
-                //--
-                getLong(toConvert, "parent_id"),
-                getString(toConvert, "purchase_note"),
-                //get categories
-                getCategories(toConvert),
-                //get tags
-                getTags(toConvert)
+    public static Product jsonToProduct(JSONObject toConvert) {
+        try {
+            return new Product(getLong(toConvert, "id"),
+                    getString(toConvert, "name"),
+                    getString(toConvert, "slug"),
+                    getString(toConvert, "permalink"),
+                    //get dates
+                    Utils.stringToDate(getString(toConvert, "date_created")),
+                    Utils.stringToDate(getString(toConvert, "date_modified")),
+                    //get type
+                    getProductType(toConvert),
+                    //get status
+                    getProductStatus(toConvert),
+                    //get featured
+                    toConvert.getBoolean("featured"),
+                    //get catalog visibility
+                    getProductCatalogVisibility(toConvert),
+                    //get strings
+                    getString(toConvert, "description"),
+                    getString(toConvert, "short_description"),
+                    getString(toConvert, "sku"),
+                    getString(toConvert, "price"),
+                    getString(toConvert, "regular_price"),
+                    getString(toConvert, "sale_price"),
+                    //get sales dates
+                    Utils.stringToDate(getString(toConvert, "date_on_sale_from")),
+                    Utils.stringToDate(getString(toConvert, "date_on_sale_to")),
+                    //--
+                    getString(toConvert, "price_html"),
+                    toConvert.getBoolean("on_sale"),
+                    toConvert.getBoolean("purchasable"),
+                    getLong(toConvert, "total_sales"),
+                    toConvert.getBoolean("virtual"),
+                    toConvert.getBoolean("downloadable"),
+                    //get downloads object
+                    getDownloadProperties(toConvert),
+                    //--
+                    getLong(toConvert, "download_limit"),
+                    getLong(toConvert, "download_expiry"),
+                    getString(toConvert, "external_url"),
+                    getString(toConvert, "button_text"),
+                    getProductTaxStatus(toConvert),
+                    getString(toConvert, "tax_class"),
+                    toConvert.getBoolean("manage_stock"),
+                    getLong(toConvert, "stock_quantity"),
+                    //get stock status
+                    getProductStockStatus(toConvert),
+                    //get back ordered
+                    getProductBackOrdered(toConvert),
+                    //--
+                    toConvert.getBoolean("backorders_allowed"),
+                    toConvert.getBoolean("backordered"),
+                    toConvert.getBoolean("sold_individually"),
+                    getString(toConvert, "weight"),
+                    //get dimensions
+                    getProductDimensions(toConvert),
+                    //--
+                    toConvert.getBoolean("shipping_required"),
+                    toConvert.getBoolean("shipping_taxable"),
+                    getString(toConvert, "shipping_class"),
+                    getLong(toConvert, "shipping_class_id"),
+                    toConvert.getBoolean("reviews_allowed"),
+                    getString(toConvert, "average_rating"),
+                    getLong(toConvert, "rating_count"),
+                    //get related ids
+                    getLongArray(toConvert, "related_ids"),
+                    getLongArray(toConvert, "upsell_ids"),
+                    getLongArray(toConvert, "cross_sell_ids"),
+                    //--
+                    getLong(toConvert, "parent_id"),
+                    getString(toConvert, "purchase_note"),
+                    //get categories
+                    getCategories(toConvert),
+                    //get tags
+                    getTags(toConvert),
+                    //get images
+                    getImages(toConvert),
+                    //get attributes
+                    getAttributes(toConvert),
+                    //get default attributes
+                    getDefaultAttributes(toConvert),
+                    //get variations
+                    getLongArray(toConvert, "variations"),
+                    //get grouped products
+                    getLongArray(toConvert, "grouped_products"),
+                    // get menu order
+                    getLong(toConvert, "menu_order")
+            );
+        } catch (Exception e) {
+            Log.i("AAA", e.getMessage());
+            return new Product(-1L);
+        }
+    }
+
+
+    public static ArrayList<DefaultAttribute> getDefaultAttributes(JSONObject toGet) throws JSONException {
+        if (!toGet.has("default_attributes"))
+            return null;
+
+        ArrayList<DefaultAttribute> result = new ArrayList<>();
+
+        JSONArray jsonArray = toGet.getJSONArray("default_attributes");
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject object = jsonArray.getJSONObject(i);
+            result.add(jsonToDefaultAttribute(object));
+        }
+
+        return result;
+    }
+
+    public static DefaultAttribute jsonToDefaultAttribute(JSONObject toGet) throws JSONException {
+        return new DefaultAttribute(
+                getLong(toGet, "id"),
+                getString(toGet, "name"),
+                getString(toGet, "option")
+        );
+    }
+
+    public static ArrayList<Attribute> getAttributes(JSONObject toGet) throws JSONException {
+        if (!toGet.has("attributes"))
+            return null;
+
+        ArrayList<Attribute> result = new ArrayList<>();
+
+        JSONArray jsonArray = toGet.getJSONArray("attributes");
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject object = jsonArray.getJSONObject(i);
+            result.add(jsonToAttribute(object));
+        }
+
+        return result;
+    }
+
+    public static Attribute jsonToAttribute(JSONObject toGet) throws JSONException {
+        ArrayList<String> options = new ArrayList<>();
+        for (int i = 0; i < toGet.getJSONArray("options").length(); i++)
+            options.add(toGet.getJSONArray("options").getString(i));
+
+        return new Attribute(
+                getLong(toGet, "id"),
+                getString(toGet, "name"),
+                getLong(toGet, "position"),
+                toGet.getBoolean("visible"),
+                toGet.getBoolean("variation"),
+                options
         );
     }
 
     public static ArrayList<Category> getCategories(JSONObject toGet) throws JSONException {
+        if (!toGet.has("categories"))
+            return null;
+
         ArrayList<Category> result = new ArrayList<>();
 
         JSONArray jsonArray = toGet.getJSONArray("categories");
@@ -109,7 +188,25 @@ public class ProductJsonConverter {
         return result;
     }
 
+    public static ArrayList<Image> getImages(JSONObject toGet) throws JSONException {
+        if (!toGet.has("images"))
+            return null;
+
+        ArrayList<Image> result = new ArrayList<>();
+
+        JSONArray jsonArray = toGet.getJSONArray("images");
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject object = jsonArray.getJSONObject(i);
+            result.add(jsonToImage(object));
+        }
+
+        return result;
+    }
+
     public static ArrayList<Tag> getTags(JSONObject toGet) throws JSONException {
+        if (!toGet.has("tags"))
+            return null;
+
         ArrayList<Tag> result = new ArrayList<>();
 
         JSONArray jsonArray = toGet.getJSONArray("tags");
@@ -134,6 +231,18 @@ public class ProductJsonConverter {
                 getLong(toGet, "id"),
                 getString(toGet, "name"),
                 getString(toGet, "slug")
+        );
+    }
+
+
+    public static Image jsonToImage(JSONObject toGet) throws JSONException {
+        return new Image(
+                getLong(toGet, "id"),
+                Utils.stringToDate(getString(toGet, "date_created")),
+                Utils.stringToDate(getString(toGet, "date_modified")),
+                getString(toGet, "src"),
+                getString(toGet, "name"),
+                getString(toGet, "alt")
         );
     }
 
