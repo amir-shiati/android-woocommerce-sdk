@@ -64,8 +64,10 @@ public class Product implements Serializable {
     private ArrayList<Long> crossSellIds;
     private long parentId;
     private String purchaseNote;
+    private ArrayList<Category> categories;
+    private ArrayList<Tag> tags;
 
-    public Product(Long id, String name, String slug, String permaLink, Date dateCreated, Date dateModified, ProductType type, ProductStatus status, boolean featured, ProductCatalogVisibility catalogVisibility, String description, String shortDescription, String sku, String price, String regularPrice, String salePrice, Date onSaleFrom, Date onSaleTo, String priceHtml, boolean onSale, boolean purchasable, long totalSales, boolean virtual, boolean downloadable, ArrayList<ProductDownloadProperties> productDownloadProperties, long downloadLimit, long downloadExpiry, String externalUrl, String buttonText, TaxStatus taxStatus, String taxClass, boolean manageStock, long stockQuantity, ProductStockStatus stockStatus, ProductBackOrdered backOrders, boolean backOrdersAllowed, boolean backOrdered, boolean soldIndividually, String weight, ProductDimensions dimensions, boolean shippingRequired, boolean shippingTaxable, String shippingClass, long shippingClassId, boolean reviewsAllowed, String averageRating, long ratingCount, ArrayList<Long> relatedIds, ArrayList<Long> upSellIds, ArrayList<Long> crossSellIds, long parentId, String purchaseNote) {
+    public Product(Long id, String name, String slug, String permaLink, Date dateCreated, Date dateModified, ProductType type, ProductStatus status, boolean featured, ProductCatalogVisibility catalogVisibility, String description, String shortDescription, String sku, String price, String regularPrice, String salePrice, Date onSaleFrom, Date onSaleTo, String priceHtml, boolean onSale, boolean purchasable, long totalSales, boolean virtual, boolean downloadable, ArrayList<ProductDownloadProperties> productDownloadProperties, long downloadLimit, long downloadExpiry, String externalUrl, String buttonText, TaxStatus taxStatus, String taxClass, boolean manageStock, long stockQuantity, ProductStockStatus stockStatus, ProductBackOrdered backOrders, boolean backOrdersAllowed, boolean backOrdered, boolean soldIndividually, String weight, ProductDimensions dimensions, boolean shippingRequired, boolean shippingTaxable, String shippingClass, long shippingClassId, boolean reviewsAllowed, String averageRating, long ratingCount, ArrayList<Long> relatedIds, ArrayList<Long> upSellIds, ArrayList<Long> crossSellIds, long parentId, String purchaseNote, ArrayList<Category> categories, ArrayList<Tag> tags) {
         this.id = id;
         this.name = name;
         this.slug = slug;
@@ -118,6 +120,8 @@ public class Product implements Serializable {
         this.crossSellIds = crossSellIds;
         this.parentId = parentId;
         this.purchaseNote = purchaseNote;
+        this.categories = categories;
+        this.tags = tags;
     }
 
     public Long getId() {

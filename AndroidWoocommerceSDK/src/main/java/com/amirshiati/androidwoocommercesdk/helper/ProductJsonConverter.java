@@ -6,9 +6,11 @@ import com.amirshiati.androidwoocommercesdk.enums.ProductStatus;
 import com.amirshiati.androidwoocommercesdk.enums.ProductStockStatus;
 import com.amirshiati.androidwoocommercesdk.enums.ProductType;
 import com.amirshiati.androidwoocommercesdk.enums.TaxStatus;
+import com.amirshiati.androidwoocommercesdk.model.Category;
 import com.amirshiati.androidwoocommercesdk.model.Product;
 import com.amirshiati.androidwoocommercesdk.model.ProductDimensions;
 import com.amirshiati.androidwoocommercesdk.model.ProductDownloadProperties;
+import com.amirshiati.androidwoocommercesdk.model.Tag;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -87,10 +89,53 @@ public class ProductJsonConverter {
                 getLongArray(toConvert, "cross_sell_ids"),
                 //--
                 getLong(toConvert, "parent_id"),
-                getString(toConvert, "purchase_note")
+                getString(toConvert, "purchase_note"),
+                //get categories
+                getCategories(toConvert),
+                //get tags
+                getTags(toConvert)
         );
     }
 
+    public static ArrayList<Category> getCategories(JSONObject toGet) throws JSONException {
+        ArrayList<Category> result = new ArrayList<>();
+
+        JSONArray jsonArray = toGet.getJSONArray("categories");
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject object = jsonArray.getJSONObject(i);
+            result.add(jsonToCategory(object));
+        }
+
+        return result;
+    }
+
+    public static ArrayList<Tag> getTags(JSONObject toGet) throws JSONException {
+        ArrayList<Tag> result = new ArrayList<>();
+
+        JSONArray jsonArray = toGet.getJSONArray("tags");
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject object = jsonArray.getJSONObject(i);
+            result.add(jsonToTag(object));
+        }
+
+        return result;
+    }
+
+    public static Category jsonToCategory(JSONObject toGet) throws JSONException {
+        return new Category(
+                getLong(toGet, "id"),
+                getString(toGet, "name"),
+                getString(toGet, "slug")
+        );
+    }
+
+    public static Tag jsonToTag(JSONObject toGet) throws JSONException {
+        return new Tag(
+                getLong(toGet, "id"),
+                getString(toGet, "name"),
+                getString(toGet, "slug")
+        );
+    }
 
     public static ProductType getProductType(JSONObject toGet) throws JSONException {
         switch (getString(toGet, "type")) {
