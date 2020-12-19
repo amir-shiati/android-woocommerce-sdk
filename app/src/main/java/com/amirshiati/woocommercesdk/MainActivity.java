@@ -33,8 +33,7 @@ public class MainActivity extends AppCompatActivity {
         wooSDK.getProducts()
                 .setPage(1)
                 .setPerPage(100)
-                .setInclude(new int[]{1174, 1219})
-                .setExclude(new int[]{403})
+                .featured(true)
                 .addGetProductsCallBack(new OnGetProductsFinished() {
                     @Override
                     public void onSuccess(ArrayList<Product> products) {

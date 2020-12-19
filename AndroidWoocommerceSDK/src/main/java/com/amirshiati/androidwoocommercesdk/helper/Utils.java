@@ -4,6 +4,9 @@ import android.net.Uri;
 
 import com.amirshiati.androidwoocommercesdk.enums.Order;
 import com.amirshiati.androidwoocommercesdk.enums.OrderBy;
+import com.amirshiati.androidwoocommercesdk.enums.ProductStatus;
+import com.amirshiati.androidwoocommercesdk.enums.ProductStockStatus;
+import com.amirshiati.androidwoocommercesdk.enums.ProductType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -58,6 +61,57 @@ public class Utils {
 
             default:
                 return "date";
+        }
+    }
+
+    public static String setBuilderProductStatus(ProductStatus status) {
+        switch (status) {
+            case PENDING:
+                return "pending";
+
+            case PUBLISH:
+                return "publish";
+
+            case PRIVATE:
+                return "private";
+
+            case DRAFT:
+                return "draft";
+
+            default:
+                return "any";
+        }
+    }
+
+    public static String setBuilderProductType(ProductType productType) {
+        switch (productType) {
+            case EXTERNAL:
+                return "external";
+
+            case GROUPED:
+                return "grouped";
+
+            case SIMPLE:
+                return "simple";
+
+            case VARIABLE:
+                return "variable";
+
+            default:
+                return "";
+        }
+    }
+
+    public static String setBuilderProductStockStatus(ProductStockStatus stockStatus) {
+        switch (stockStatus) {
+            case INSTOCK:
+                return "instock";
+
+            case OUTOFSTOCK:
+                return "outofstock";
+
+            default:
+                return "onbackorder";
         }
     }
 

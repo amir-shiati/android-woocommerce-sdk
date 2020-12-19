@@ -6,6 +6,9 @@ import android.util.Log;
 import com.amirshiati.androidwoocommercesdk.enums.Order;
 import com.amirshiati.androidwoocommercesdk.enums.OrderBy;
 import com.amirshiati.androidwoocommercesdk.enums.ProductManagerType;
+import com.amirshiati.androidwoocommercesdk.enums.ProductStatus;
+import com.amirshiati.androidwoocommercesdk.enums.ProductStockStatus;
+import com.amirshiati.androidwoocommercesdk.enums.ProductType;
 import com.amirshiati.androidwoocommercesdk.helper.ProductJsonConverter;
 import com.amirshiati.androidwoocommercesdk.helper.Utils;
 import com.amirshiati.androidwoocommercesdk.helper.Volley;
@@ -36,6 +39,22 @@ public class ProductManager {
     private String search = "";
     private Order order;
     private OrderBy orderBy;
+    private Integer offset;
+    private String slug;
+    private ProductStatus status;
+    private ProductType productType;
+    private String sku;
+    private Boolean featured;
+    private String category;
+    private String tag;
+    private String shippingClass;
+    private String attribute;
+    private String attributeTerm;
+    private String taxClass;
+    private Boolean onSale;
+    private String minPrice;
+    private String maxPrice;
+    private ProductStockStatus stockStatus;
     private int[] include;
     private int[] exclude;
     private int[] parent;
@@ -46,6 +65,76 @@ public class ProductManager {
         this.builder = builder;
         this.type = type;
         this.volley = volley;
+    }
+
+    public ProductManager stockStatus(ProductStockStatus stockStatus) {
+        this.stockStatus = stockStatus;
+        return this;
+    }
+
+    public ProductManager maxPrice(String maxPrice) {
+        this.maxPrice = maxPrice;
+        return this;
+    }
+
+    public ProductManager minPrice(String minPrice) {
+        this.minPrice = minPrice;
+        return this;
+    }
+
+    public ProductManager onSale(boolean onSale) {
+        this.onSale = onSale;
+        return this;
+    }
+
+    public ProductManager taxClass(String taxClass) {
+        this.taxClass = taxClass;
+        return this;
+    }
+
+    public ProductManager attribute(String attribute) {
+        this.attribute = attribute;
+        return this;
+    }
+
+    public ProductManager shippingClass(String shippingClass) {
+        this.shippingClass = shippingClass;
+        return this;
+    }
+
+    public ProductManager tag(String tag) {
+        this.tag = tag;
+        return this;
+    }
+
+    public ProductManager category(String category) {
+        this.category = category;
+        return this;
+    }
+
+    public ProductManager featured(boolean featured) {
+        this.featured = featured;
+        return this;
+    }
+
+    public ProductManager sku(String sku) {
+        this.sku = sku;
+        return this;
+    }
+
+    public ProductManager type(ProductType productType) {
+        this.productType = productType;
+        return this;
+    }
+
+    public ProductManager slug(String slug) {
+        this.slug = slug;
+        return this;
+    }
+
+    public ProductManager setOffset(Integer offset) {
+        this.offset = offset;
+        return this;
     }
 
     public ProductManager setInclude(int[] include) {
@@ -135,6 +224,58 @@ public class ProductManager {
 
         if (productManager.orderBy != null)
             productManager.builder.appendQueryParameter("orderby", Utils.setBuilderOrderBy(productManager.orderBy));
+
+        if (productManager.offset != null)
+            productManager.builder.appendQueryParameter("offset", String.valueOf(productManager.offset));
+
+        if (!Utils.stringEmpty(productManager.slug))
+            productManager.builder.appendQueryParameter("slug", productManager.slug);
+
+        if (productManager.status != null)
+            productManager.builder.appendQueryParameter("status", Utils.setBuilderProductStatus(productManager.status));
+
+        if (productManager.productType != null)
+            productManager.builder.appendQueryParameter("type", Utils.setBuilderProductType(productManager.productType));
+
+        if (!Utils.stringEmpty(productManager.sku))
+            productManager.builder.appendQueryParameter("sku", productManager.sku);
+
+        if (productManager.featured != null)
+            productManager.builder.appendQueryParameter("featured", String.valueOf(productManager.featured));
+
+        if (!Utils.stringEmpty(productManager.category))
+            productManager.builder.appendQueryParameter("category", productManager.category);
+
+        if (!Utils.stringEmpty(productManager.tag))
+            productManager.builder.appendQueryParameter("tag", productManager.tag);
+
+        if (!Utils.stringEmpty(productManager.shippingClass))
+            productManager.builder.appendQueryParameter("shipping_class", productManager.shippingClass);
+
+        if (!Utils.stringEmpty(productManager.attribute))
+            productManager.builder.appendQueryParameter("attribute", productManager.attribute);
+
+        if (!Utils.stringEmpty(productManager.attributeTerm))
+            productManager.builder.appendQueryParameter("attribute_term", productManager.attributeTerm);
+
+        if (!Utils.stringEmpty(productManager.taxClass))
+            productManager.builder.appendQueryParameter("tax_class", productManager.taxClass);
+
+        if (productManager.onSale != null)
+            productManager.builder.appendQueryParameter("on_sale", String.valueOf(productManager.onSale));
+
+        if (!Utils.stringEmpty(productManager.attributeTerm))
+            productManager.builder.appendQueryParameter("attribute_term", productManager.attributeTerm);
+
+        if (!Utils.stringEmpty(productManager.minPrice))
+            productManager.builder.appendQueryParameter("min_price", productManager.minPrice);
+
+        if (!Utils.stringEmpty(productManager.maxPrice))
+            productManager.builder.appendQueryParameter("max_price", productManager.maxPrice);
+
+        if (productManager.stockStatus != null)
+            productManager.builder.appendQueryParameter("stock_status", Utils.setBuilderProductStockStatus(productManager.stockStatus));
+
 
         if (productManager.include != null)
             array += Utils.includeId(productManager.include, "include");
