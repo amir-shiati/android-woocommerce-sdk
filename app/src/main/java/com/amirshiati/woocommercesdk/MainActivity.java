@@ -33,14 +33,13 @@ public class MainActivity extends AppCompatActivity {
         wooSDK.getProducts()
                 .setPage(1)
                 .setPerPage(100)
-
+                .setInclude(new int[]{1174, 1219})
+                .setExclude(new int[]{403})
                 .addGetProductsCallBack(new OnGetProductsFinished() {
                     @Override
                     public void onSuccess(ArrayList<Product> products) {
                         for (Product product : products)
-                            if (product.getId() == 494)
-                                for (Image image : product.getImages())
-                                    Log.i(TAG, image.getSrc());
+                            Log.i(TAG, product.getName());
                     }
 
                     @Override
@@ -52,21 +51,21 @@ public class MainActivity extends AppCompatActivity {
 
                 .start();
 
-        wooSDK.getProduct(494)
-                .addGetProductCallBack(new OnGetProductFinished() {
-                    @Override
-                    public void onSuccess(Product product) {
-                        for (Image image : product.getImages())
-                            Log.i(TAG, image.getSrc());
-                    }
-
-                    @Override
-                    public void onFail(String message) {
-                        Log.i(TAG, "error");
-                        Log.i(TAG, message);
-                    }
-                })
-                .start();
+//        wooSDK.getProduct(494)
+//                .addGetProductCallBack(new OnGetProductFinished() {
+//                    @Override
+//                    public void onSuccess(Product product) {
+//                        for (Image image : product.getImages())
+//                            Log.i(TAG, image.getSrc());
+//                    }
+//
+//                    @Override
+//                    public void onFail(String message) {
+//                        Log.i(TAG, "error");
+//                        Log.i(TAG, message);
+//                    }
+//                })
+//                .start();
 
     }
 }

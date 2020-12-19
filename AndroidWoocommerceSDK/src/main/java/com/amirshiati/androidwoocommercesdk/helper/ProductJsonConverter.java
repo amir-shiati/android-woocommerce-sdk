@@ -1,7 +1,5 @@
 package com.amirshiati.androidwoocommercesdk.helper;
 
-import android.util.Log;
-
 import com.amirshiati.androidwoocommercesdk.enums.ProductBackOrdered;
 import com.amirshiati.androidwoocommercesdk.enums.ProductCatalogVisibility;
 import com.amirshiati.androidwoocommercesdk.enums.ProductStatus;
@@ -114,7 +112,6 @@ public class ProductJsonConverter {
                     getLong(toConvert, "menu_order")
             );
         } catch (Exception e) {
-            Log.i("AAA", e.getMessage());
             return new Product(-1L);
         }
     }

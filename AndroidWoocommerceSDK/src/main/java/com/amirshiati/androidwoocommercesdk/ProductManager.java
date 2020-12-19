@@ -36,12 +36,36 @@ public class ProductManager {
     private String search = "";
     private Order order;
     private OrderBy orderBy;
+    private int[] include;
+    private int[] exclude;
+    private int[] parent;
+    private int[] parentExclude;
 
 
     public ProductManager(Uri.Builder builder, ProductManagerType type, Volley volley) {
         this.builder = builder;
         this.type = type;
         this.volley = volley;
+    }
+
+    public ProductManager setInclude(int[] include) {
+        this.include = include;
+        return this;
+    }
+
+    public ProductManager setParentExclude(int[] parentExclude) {
+        this.parentExclude = parentExclude;
+        return this;
+    }
+
+    public ProductManager setParent(int[] parent) {
+        this.parent = parent;
+        return this;
+    }
+
+    public ProductManager setExclude(int[] exclude) {
+        this.exclude = exclude;
+        return this;
     }
 
     public ProductManager addGetProductsCallBack(OnGetProductsFinished onGetProductFinished) {
@@ -82,8 +106,7 @@ public class ProductManager {
     public void start() {
         switch (type) {
             case GETPRODUCTS:
-                setBuilder(this);
-                getProducts(this);
+                getProducts(this, setBuilder(this));
                 break;
 
             case GETPRODUCT:
@@ -95,59 +118,49 @@ public class ProductManager {
         }
     }
 
-    private void setBuilder(final ProductManager productManager) {
+    private String setBuilder(final ProductManager productManager) {
         if (productManager.type == ProductManagerType.GETPRODUCT)
-            return;
+            return productManager.builder.build().toString();
 
-        builder.appendQueryParameter("page", String.valueOf(productManager.page));
-        builder.appendQueryParameter("per_page", String.valueOf(productManager.perPage));
+        String array = "";
+
+        productManager.builder.appendQueryParameter("page", String.valueOf(productManager.page));
+        productManager.builder.appendQueryParameter("per_page", String.valueOf(productManager.perPage));
 
         if (!Utils.stringEmpty(productManager.search))
-            builder.appendQueryParameter("search", productManager.search);
+            productManager.builder.appendQueryParameter("search", productManager.search);
 
         if (productManager.order != null)
-            builder.appendQueryParameter("order", productManager.setBuilderOrder(productManager.order));
+            productManager.builder.appendQueryParameter("order", Utils.setBuilderOrder(productManager.order));
 
         if (productManager.orderBy != null)
-            builder.appendQueryParameter("orderby", productManager.setBuilderOrderBy(productManager.orderBy));
+            productManager.builder.appendQueryParameter("orderby", Utils.setBuilderOrderBy(productManager.orderBy));
+
+        if (productManager.include != null)
+            array += Utils.includeId(productManager.include, "include");
+
+        if (productManager.exclude != null)
+            array += Utils.includeId(productManager.exclude, "exclude");
+
+        if (productManager.parent != null)
+            array += Utils.includeId(productManager.parent, "parent");
+
+        if (productManager.parentExclude != null)
+            array += Utils.includeId(productManager.parentExclude, "parent_exclude");
+
+
+        return productManager.builder.build().toString() + array;
 
     }
 
-    private String setBuilderOrder(Order order) {
-        switch (order) {
-            case ASC:
-                return "asc";
 
-            default:
-                return "desc";
-        }
-    }
-
-    private String setBuilderOrderBy(OrderBy orderBy) {
-        switch (orderBy) {
-            case ID:
-                return "id";
-
-            case SLUG:
-                return "slug";
-
-            case TITLE:
-                return "title";
-
-            case INCLUDE:
-                return "include";
-
-            default:
-                return "date";
-        }
-    }
-
-    private void getProducts(final ProductManager productManager) {
+    private void getProducts(final ProductManager productManager, String url) {
+        Log.i("AAA", url);
         final ArrayList<Product> result = new ArrayList<Product>();
 
         volley.basicAuthJsonArrayReq(
                 Request.Method.GET,
-                builder.build().toString(),
+                url,
                 null,
                 new OnGetJsonArrayFinished() {
                     @Override
