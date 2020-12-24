@@ -48,25 +48,28 @@ public class MainActivity extends AppCompatActivity {
 //                })
 //                .start();
 
-//        wooSDK.getCategories()
-//                .setPage(1)
-//                .setPerPage(100)
-//                .setExclude(new int[]{191})
-//                .hideEmpty(true)
-//                .addGetCategoriesCallBack(new OnGetCategoriesFinished() {
-//                    @Override
-//                    public void onSuccess(ArrayList<Category> categories) {
-//                        for (Category category : categories)
-//                            Log.i(TAG, category.getName());
-//                    }
-//
-//                    @Override
-//                    public void onFail(String message) {
-//                        Log.i(TAG, "error");
-//                        Log.i(TAG, message);
-//                    }
-//                })
-//                .start();
+        wooSDK.getCategories()
+                .setPage(1)
+                .setPerPage(100)
+                .setExclude(new int[200])
+                .setExclude(new int[]{201})
+                .setParent(323)
+                .setOrder(Order.DESC)
+                .hideEmpty(true)
+                .addGetCategoriesCallBack(new OnGetCategoriesFinished() {
+                    @Override
+                    public void onSuccess(ArrayList<Category> categories) {
+                        for (Category category : categories)
+                            Log.i(TAG, category.getName());
+                    }
+
+                    @Override
+                    public void onFail(String message) {
+                        Log.i(TAG, "error");
+                        Log.i(TAG, message);
+                    }
+                })
+                .start();
 
 //        wooSDK.getProducts()
 //                .setPage(1)

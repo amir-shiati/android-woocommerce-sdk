@@ -20,7 +20,7 @@ Step 2. Add the dependency
 ```
 
 # Usage
-It's really simple:
+### Initialize WooSDK
 ```java
         WooSDK wooSDK = new WooSDK(
                 context,
@@ -28,7 +28,9 @@ It's really simple:
                 "cs_key",
                 "domain"
         );
-
+```
+### To get a list of products:
+```java
         wooSDK.getProducts()
                 .setPage(3)
                 .setPerPage(25)
@@ -53,3 +55,29 @@ It's really simple:
 
     }
 ```
+
+### To get a list of categories:
+```java
+        wooSDK.getCategories()
+                .setPage(1)
+                .setPerPage(100)
+                .setExclude(new int[200])
+                .setExclude(new int[]{201})
+                .setParent(323)
+                .setOrder(Order.DESC)
+                .hideEmpty(true)
+                .addGetCategoriesCallBack(new OnGetCategoriesFinished() {
+                    @Override
+                    public void onSuccess(ArrayList<Category> categories) {
+                        for (Category category : categories)
+                            Log.i(TAG, category.getName());
+                    }
+
+                    @Override
+                    public void onFail(String message) {
+                        Log.i(TAG, message);
+                    }
+                })
+                .start();
+```
+
