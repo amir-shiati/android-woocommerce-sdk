@@ -296,7 +296,6 @@ public class ProductManager {
 
 
     private void getProducts(final ProductManager productManager, String url) {
-        Log.i("AAA", url);
         final ArrayList<Product> result = new ArrayList<Product>();
 
         volley.basicAuthJsonArrayReq(

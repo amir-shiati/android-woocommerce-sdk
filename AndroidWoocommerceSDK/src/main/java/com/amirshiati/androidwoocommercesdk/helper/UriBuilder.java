@@ -28,4 +28,19 @@ public class UriBuilder {
 
         return builder;
     }
+
+
+    public static Uri.Builder getCategories(String domainName) {
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("https")
+                .authority(domainName)
+                .appendPath("wp-json")
+                .appendPath("wc")
+                .appendPath("v3")
+                .appendPath("products")
+                .appendPath("categories");
+        ;
+
+        return builder;
+    }
 }
