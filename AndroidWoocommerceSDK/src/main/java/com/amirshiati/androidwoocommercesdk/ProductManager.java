@@ -77,6 +77,16 @@ public class ProductManager {
         return this;
     }
 
+    public ProductManager setStatus(ProductStatus status) {
+        this.status = status;
+        return this;
+    }
+
+    public ProductManager setAttributeTerm(String attributeTerm) {
+        this.attributeTerm = attributeTerm;
+        return this;
+    }
+
     public ProductManager minPrice(String minPrice) {
         this.minPrice = minPrice;
         return this;
@@ -346,7 +356,6 @@ public class ProductManager {
                     @Override
                     public void onSuccess(JSONObject response) {
                         try {
-                            Log.i("AAA", response.toString());
                             if (productManager.onGetProductFinished != null)
                                 productManager.onGetProductFinished.onSuccess(ProductJsonConverter.jsonToProduct(response));
 

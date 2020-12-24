@@ -51,4 +51,8 @@ public class WooSDK {
         return new CategoryManager(UriBuilder.getCategories(domainName), CategoryManagerType.GETCATEGORIES, volley);
     }
 
+    public CategoryManager getCategory(long categoryId) {
+        return new CategoryManager(UriBuilder.getCategory(domainName, categoryId), CategoryManagerType.GETCATEGORY, volley);
+    }
+
 }
