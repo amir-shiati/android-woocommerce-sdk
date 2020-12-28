@@ -2,6 +2,7 @@ package com.amirshiati.androidwoocommercesdk.helper;
 
 import android.net.Uri;
 
+import com.amirshiati.androidwoocommercesdk.enums.CategoryOrderBy;
 import com.amirshiati.androidwoocommercesdk.enums.Order;
 import com.amirshiati.androidwoocommercesdk.enums.OrderBy;
 import com.amirshiati.androidwoocommercesdk.enums.ProductStatus;
@@ -61,6 +62,31 @@ public class Utils {
 
             default:
                 return "date";
+        }
+    }
+
+    public static String setBuilderCategoryOrderBy(CategoryOrderBy orderBy) {
+        switch (orderBy) {
+            case ID:
+                return "id";
+
+            case SLUG:
+                return "slug";
+
+            case TERM_GROUP:
+                return "term_group";
+
+            case COUNT:
+                return "count";
+
+            case DESCRIPTION:
+                return "description";
+
+            case INCLUDE:
+                return "include";
+
+            default:
+                return "name";
         }
     }
 

@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.amirshiati.androidwoocommercesdk.enums.CategoryManagerType;
+import com.amirshiati.androidwoocommercesdk.enums.CategoryOrderBy;
 import com.amirshiati.androidwoocommercesdk.enums.Order;
 import com.amirshiati.androidwoocommercesdk.enums.OrderBy;
 import com.amirshiati.androidwoocommercesdk.enums.ProductManagerType;
@@ -37,7 +38,7 @@ public class CategoryManager {
     private int perPage = 10;
     private String search;
     private Order order;
-    private OrderBy orderBy;
+    private CategoryOrderBy orderBy;
     private Boolean hideEmpty;
     private Long parent;
     private Long product;
@@ -81,7 +82,7 @@ public class CategoryManager {
         return this;
     }
 
-    public CategoryManager setOrderBy(OrderBy orderBy) {
+    public CategoryManager setOrderBy(CategoryOrderBy orderBy) {
         this.orderBy = orderBy;
         return this;
     }
@@ -147,7 +148,7 @@ public class CategoryManager {
             categoryManager.builder.appendQueryParameter("order", Utils.setBuilderOrder(categoryManager.order));
 
         if (categoryManager.orderBy != null)
-            categoryManager.builder.appendQueryParameter("orderby", Utils.setBuilderOrderBy(categoryManager.orderBy));
+            categoryManager.builder.appendQueryParameter("orderby", Utils.setBuilderCategoryOrderBy(categoryManager.orderBy));
 
         if (categoryManager.hideEmpty != null)
             categoryManager.builder.appendQueryParameter("hide_empty", String.valueOf(categoryManager.hideEmpty));
