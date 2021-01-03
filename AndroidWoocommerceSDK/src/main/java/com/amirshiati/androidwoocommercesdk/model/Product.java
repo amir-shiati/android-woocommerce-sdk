@@ -67,7 +67,7 @@ public class Product implements Serializable {
     private ArrayList<Category> categories;
     private ArrayList<Tag> tags;
     private ArrayList<Image> images;
-    private ArrayList<Attribute> attributes;
+    private ArrayList<ProductAttribute> productAttributes;
     private ArrayList<DefaultAttribute> defaultAttributes;
     private ArrayList<Long> variations;
     private ArrayList<Long> groupedProducts;
@@ -77,7 +77,7 @@ public class Product implements Serializable {
         this.id = id;
     }
 
-    public Product(Long id, String name, String permaLink, Date dateCreated, Date dateModified, ProductType type, ProductStatus status, boolean featured, String description, String shortDescription, String sku, String price, boolean onSale, boolean purchasable, boolean virtual, boolean downloadable, TaxStatus taxStatus, String taxClass, boolean manageStock, ProductStockStatus stockStatus, boolean soldIndividually, long shippingClassId, ArrayList<Category> categories, ArrayList<Tag> tags, ArrayList<Image> images, ArrayList<Attribute> attributes, ArrayList<Long> variations) {
+    public Product(Long id, String name, String permaLink, Date dateCreated, Date dateModified, ProductType type, ProductStatus status, boolean featured, String description, String shortDescription, String sku, String price, boolean onSale, boolean purchasable, boolean virtual, boolean downloadable, TaxStatus taxStatus, String taxClass, boolean manageStock, ProductStockStatus stockStatus, boolean soldIndividually, long shippingClassId, ArrayList<Category> categories, ArrayList<Tag> tags, ArrayList<Image> images, ArrayList<ProductAttribute> productAttributes, ArrayList<Long> variations) {
         this.id = id;
         this.name = name;
         this.permaLink = permaLink;
@@ -103,11 +103,11 @@ public class Product implements Serializable {
         this.categories = categories;
         this.tags = tags;
         this.images = images;
-        this.attributes = attributes;
+        this.productAttributes = productAttributes;
         this.variations = variations;
     }
 
-    public Product(Long id, String name, String slug, String permaLink, Date dateCreated, Date dateModified, ProductType type, ProductStatus status, boolean featured, ProductCatalogVisibility catalogVisibility, String description, String shortDescription, String sku, String price, String regularPrice, String salePrice, Date onSaleFrom, Date onSaleTo, String priceHtml, boolean onSale, boolean purchasable, long totalSales, boolean virtual, boolean downloadable, ArrayList<ProductDownloadProperties> productDownloadProperties, long downloadLimit, long downloadExpiry, String externalUrl, String buttonText, TaxStatus taxStatus, String taxClass, boolean manageStock, long stockQuantity, ProductStockStatus stockStatus, ProductBackOrdered backOrders, boolean backOrdersAllowed, boolean backOrdered, boolean soldIndividually, String weight, ProductDimensions dimensions, boolean shippingRequired, boolean shippingTaxable, String shippingClass, long shippingClassId, boolean reviewsAllowed, String averageRating, long ratingCount, ArrayList<Long> relatedIds, ArrayList<Long> upSellIds, ArrayList<Long> crossSellIds, long parentId, String purchaseNote, ArrayList<Category> categories, ArrayList<Tag> tags, ArrayList<Image> images, ArrayList<Attribute> attributes, ArrayList<DefaultAttribute> defaultAttributes, ArrayList<Long> variations, ArrayList<Long> groupedProducts, long menuOrder) {
+    public Product(Long id, String name, String slug, String permaLink, Date dateCreated, Date dateModified, ProductType type, ProductStatus status, boolean featured, ProductCatalogVisibility catalogVisibility, String description, String shortDescription, String sku, String price, String regularPrice, String salePrice, Date onSaleFrom, Date onSaleTo, String priceHtml, boolean onSale, boolean purchasable, long totalSales, boolean virtual, boolean downloadable, ArrayList<ProductDownloadProperties> productDownloadProperties, long downloadLimit, long downloadExpiry, String externalUrl, String buttonText, TaxStatus taxStatus, String taxClass, boolean manageStock, long stockQuantity, ProductStockStatus stockStatus, ProductBackOrdered backOrders, boolean backOrdersAllowed, boolean backOrdered, boolean soldIndividually, String weight, ProductDimensions dimensions, boolean shippingRequired, boolean shippingTaxable, String shippingClass, long shippingClassId, boolean reviewsAllowed, String averageRating, long ratingCount, ArrayList<Long> relatedIds, ArrayList<Long> upSellIds, ArrayList<Long> crossSellIds, long parentId, String purchaseNote, ArrayList<Category> categories, ArrayList<Tag> tags, ArrayList<Image> images, ArrayList<ProductAttribute> productAttributes, ArrayList<DefaultAttribute> defaultAttributes, ArrayList<Long> variations, ArrayList<Long> groupedProducts, long menuOrder) {
         this.id = id;
         this.name = name;
         this.slug = slug;
@@ -163,7 +163,7 @@ public class Product implements Serializable {
         this.categories = categories;
         this.tags = tags;
         this.images = images;
-        this.attributes = attributes;
+        this.productAttributes = productAttributes;
         this.defaultAttributes = defaultAttributes;
         this.variations = variations;
         this.groupedProducts = groupedProducts;
@@ -578,12 +578,12 @@ public class Product implements Serializable {
         this.images = images;
     }
 
-    public ArrayList<Attribute> getAttributes() {
-        return attributes;
+    public ArrayList<ProductAttribute> getProductAttributes() {
+        return productAttributes;
     }
 
-    public void setAttributes(ArrayList<Attribute> attributes) {
-        this.attributes = attributes;
+    public void setProductAttributes(ArrayList<ProductAttribute> productAttributes) {
+        this.productAttributes = productAttributes;
     }
 
     public ArrayList<DefaultAttribute> getDefaultAttributes() {

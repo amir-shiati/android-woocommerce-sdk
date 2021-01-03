@@ -6,7 +6,7 @@ import com.amirshiati.androidwoocommercesdk.enums.ProductStatus;
 import com.amirshiati.androidwoocommercesdk.enums.ProductStockStatus;
 import com.amirshiati.androidwoocommercesdk.enums.ProductType;
 import com.amirshiati.androidwoocommercesdk.enums.TaxStatus;
-import com.amirshiati.androidwoocommercesdk.model.Attribute;
+import com.amirshiati.androidwoocommercesdk.model.ProductAttribute;
 import com.amirshiati.androidwoocommercesdk.model.Category;
 import com.amirshiati.androidwoocommercesdk.model.DefaultAttribute;
 import com.amirshiati.androidwoocommercesdk.model.Image;
@@ -140,11 +140,11 @@ public class ProductJsonConverter {
         );
     }
 
-    public static ArrayList<Attribute> getAttributes(JSONObject toGet) throws JSONException {
+    public static ArrayList<ProductAttribute> getAttributes(JSONObject toGet) throws JSONException {
         if (!toGet.has("attributes"))
             return null;
 
-        ArrayList<Attribute> result = new ArrayList<>();
+        ArrayList<ProductAttribute> result = new ArrayList<>();
 
         JSONArray jsonArray = toGet.getJSONArray("attributes");
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -155,12 +155,12 @@ public class ProductJsonConverter {
         return result;
     }
 
-    public static Attribute jsonToAttribute(JSONObject toGet) throws JSONException {
+    public static ProductAttribute jsonToAttribute(JSONObject toGet) throws JSONException {
         ArrayList<String> options = new ArrayList<>();
         for (int i = 0; i < toGet.getJSONArray("options").length(); i++)
             options.add(toGet.getJSONArray("options").getString(i));
 
-        return new Attribute(
+        return new ProductAttribute(
                 getLong(toGet, "id"),
                 getString(toGet, "name"),
                 getLong(toGet, "position"),

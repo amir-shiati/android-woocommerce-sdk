@@ -8,10 +8,13 @@ import android.util.Log;
 import com.amirshiati.androidwoocommercesdk.WooSDK;
 import com.amirshiati.androidwoocommercesdk.enums.Order;
 import com.amirshiati.androidwoocommercesdk.enums.OrderBy;
+import com.amirshiati.androidwoocommercesdk.interfaces.OnGetAttributeFinished;
+import com.amirshiati.androidwoocommercesdk.interfaces.OnGetAttributesFinished;
 import com.amirshiati.androidwoocommercesdk.interfaces.OnGetCategoriesFinished;
 import com.amirshiati.androidwoocommercesdk.interfaces.OnGetCategoryFinished;
 import com.amirshiati.androidwoocommercesdk.interfaces.OnGetProductFinished;
 import com.amirshiati.androidwoocommercesdk.interfaces.OnGetProductsFinished;
+import com.amirshiati.androidwoocommercesdk.model.Attribute;
 import com.amirshiati.androidwoocommercesdk.model.Category;
 import com.amirshiati.androidwoocommercesdk.model.Image;
 import com.amirshiati.androidwoocommercesdk.model.Product;
@@ -32,6 +35,37 @@ public class MainActivity extends AppCompatActivity {
                 "cs_key",
                 "domain"
         );
+
+//        wooSDK.getAttributes(1)
+//                .addGetAttributeCallBack(new OnGetAttributeFinished() {
+//                    @Override
+//                    public void onSuccess(Attribute attribute) {
+//                        Log.i(TAG, attribute.getName());
+//                    }
+//
+//                    @Override
+//                    public void onFail(String message) {
+//                        Log.i(TAG, "error");
+//                        Log.i(TAG, message);
+//                    }
+//                })
+//                .start();
+
+//        wooSDK.getAttributes()
+//                .addGetAttributesCallBack(new OnGetAttributesFinished() {
+//                    @Override
+//                    public void onSuccess(ArrayList<Attribute> attributes) {
+//                        for (Attribute attribute : attributes)
+//                            Log.i(TAG, attribute.getName());
+//                    }
+//
+//                    @Override
+//                    public void onFail(String message) {
+//                        Log.i(TAG, "error");
+//                        Log.i(TAG, message);
+//                    }
+//                })
+//                .start();
 
 //        wooSDK.getCategory(191)
 //                .addGetCategoryCallBack(new OnGetCategoryFinished() {

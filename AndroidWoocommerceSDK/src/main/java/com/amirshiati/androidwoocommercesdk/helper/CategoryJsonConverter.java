@@ -1,7 +1,6 @@
 package com.amirshiati.androidwoocommercesdk.helper;
 
 
-import android.widget.Switch;
 
 import com.amirshiati.androidwoocommercesdk.enums.CategoryDisplay;
 import com.amirshiati.androidwoocommercesdk.model.Category;
@@ -9,6 +8,9 @@ import com.amirshiati.androidwoocommercesdk.model.Image;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import static com.amirshiati.androidwoocommercesdk.helper.ProductJsonConverter.getLong;
+import static com.amirshiati.androidwoocommercesdk.helper.ProductJsonConverter.getString;
 
 public class CategoryJsonConverter {
     public static Category jsonToCategory(JSONObject toConvert) throws JSONException {
@@ -54,19 +56,5 @@ public class CategoryJsonConverter {
             default:
                 return CategoryDisplay.DEFAULT;
         }
-    }
-
-    public static String getString(JSONObject toGet, String key) throws JSONException {
-        if (!toGet.isNull(key))
-            return toGet.getString(key);
-
-        return "";
-    }
-
-    public static long getLong(JSONObject toGet, String key) throws JSONException {
-        if (!toGet.isNull(key))
-            return toGet.getLong(key);
-
-        return -1;
     }
 }

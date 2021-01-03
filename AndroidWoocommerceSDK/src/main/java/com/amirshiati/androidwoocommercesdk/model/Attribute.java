@@ -1,23 +1,22 @@
 package com.amirshiati.androidwoocommercesdk.model;
 
+import com.amirshiati.androidwoocommercesdk.enums.AttributeOrderBy;
+
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class Attribute implements Serializable {
     private Long id;
     private String name;
-    private long position;
-    private boolean visible;
-    private boolean variation;
-    private ArrayList<String> options;
+    private String slug;
+    private AttributeOrderBy orderBy;
+    private boolean hasArchives;
 
-    public Attribute(Long id, String name, long position, boolean visible, boolean variation, ArrayList<String> options) {
+    public Attribute(Long id, String name, String slug, AttributeOrderBy orderBy, boolean hasArchives) {
         this.id = id;
         this.name = name;
-        this.position = position;
-        this.visible = visible;
-        this.variation = variation;
-        this.options = options;
+        this.slug = slug;
+        this.orderBy = orderBy;
+        this.hasArchives = hasArchives;
     }
 
     public Long getId() {
@@ -36,35 +35,27 @@ public class Attribute implements Serializable {
         this.name = name;
     }
 
-    public long getPosition() {
-        return position;
+    public String getSlug() {
+        return slug;
     }
 
-    public void setPosition(long position) {
-        this.position = position;
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
-    public boolean isVisible() {
-        return visible;
+    public AttributeOrderBy getOrderBy() {
+        return orderBy;
     }
 
-    public void setVisible(boolean visible) {
-        this.visible = visible;
+    public void setOrderBy(AttributeOrderBy orderBy) {
+        this.orderBy = orderBy;
     }
 
-    public boolean isVariation() {
-        return variation;
+    public boolean isHasArchives() {
+        return hasArchives;
     }
 
-    public void setVariation(boolean variation) {
-        this.variation = variation;
-    }
-
-    public ArrayList<String> getOptions() {
-        return options;
-    }
-
-    public void setOptions(ArrayList<String> options) {
-        this.options = options;
+    public void setHasArchives(boolean hasArchives) {
+        this.hasArchives = hasArchives;
     }
 }

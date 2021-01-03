@@ -3,6 +3,7 @@ package com.amirshiati.androidwoocommercesdk;
 
 import android.content.Context;
 
+import com.amirshiati.androidwoocommercesdk.enums.AttributeManagerType;
 import com.amirshiati.androidwoocommercesdk.enums.CategoryManagerType;
 import com.amirshiati.androidwoocommercesdk.enums.ProductManagerType;
 import com.amirshiati.androidwoocommercesdk.helper.ProductJsonConverter;
@@ -53,6 +54,14 @@ public class WooSDK {
 
     public CategoryManager getCategory(long categoryId) {
         return new CategoryManager(UriBuilder.getCategory(domainName, categoryId), CategoryManagerType.GETCATEGORY, volley);
+    }
+
+    public AttributeManager getAttributes() {
+        return new AttributeManager(UriBuilder.getAttributes(domainName), AttributeManagerType.GETATTRIBUTES, volley);
+    }
+
+    public AttributeManager getAttributes(long attributeId) {
+        return new AttributeManager(UriBuilder.getAttribute(domainName, attributeId), AttributeManagerType.GETATTRIBUTE, volley);
     }
 
 }
