@@ -5,12 +5,12 @@ import java.io.Serializable;
 public class Tag implements Serializable {
     private long id;
     private String name;
-    private String image;
+    private String slug;
 
-    public Tag(long id, String name, String image) {
+    public Tag(long id, String name, String slug) {
         this.id = id;
         this.name = name;
-        this.image = image;
+        this.slug = slug;
     }
 
     public long getId() {
@@ -29,11 +29,11 @@ public class Tag implements Serializable {
         this.name = name;
     }
 
-    public String getImage() {
-        return image;
+    public String getSlug() {
+        return slug;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 }
