@@ -20,6 +20,7 @@ public class Order implements Serializable {
     private Date dateModified;
     private String discountTotal;
     private String discountTax;
+    private String shippingTotal;
     private String shippingTax;
     private String cartTax;
     private String total;
@@ -44,7 +45,7 @@ public class Order implements Serializable {
     private ArrayList<OrderCouponLine> couponLines;
     private ArrayList<OrderRefund> refunds;
 
-    public Order(long id, long parentId, String number, String orderKey, String createdVia, String version, OrderStatus status, String currency, Date dateCreated, Date dateModified, String discountTotal, String discountTax, String shippingTax, String cartTax, String total, String totalTax, boolean pricesIncludeTax, long customerId, String customerIpAddress, String customerUserAgent, String customerNote, OrderBilling billing, OrderShipping shipping, String paymentMethod, String paymentMethodTitle, String transactionId, Date datePaid, Date dateCompleted, String cartHash, ArrayList<OrderLineItem> lineItems, ArrayList<OrderTax> taxLines, ArrayList<OrderShippingLine> shippingLines, ArrayList<OrderFeeLines> feeLines, ArrayList<OrderCouponLine> couponLines, ArrayList<OrderRefund> refunds) {
+    public Order(long id, long parentId, String number, String orderKey, String createdVia, String version, OrderStatus status, String currency, Date dateCreated, Date dateModified, String discountTotal, String discountTax, String shippingTotal, String shippingTax, String cartTax, String total, String totalTax, boolean pricesIncludeTax, long customerId, String customerIpAddress, String customerUserAgent, String customerNote, OrderBilling billing, OrderShipping shipping, String paymentMethod, String paymentMethodTitle, String transactionId, Date datePaid, Date dateCompleted, String cartHash, ArrayList<OrderLineItem> lineItems, ArrayList<OrderTax> taxLines, ArrayList<OrderShippingLine> shippingLines, ArrayList<OrderFeeLines> feeLines, ArrayList<OrderCouponLine> couponLines, ArrayList<OrderRefund> refunds) {
         this.id = id;
         this.parentId = parentId;
         this.number = number;
@@ -57,6 +58,7 @@ public class Order implements Serializable {
         this.dateModified = dateModified;
         this.discountTotal = discountTotal;
         this.discountTax = discountTax;
+        this.shippingTotal = shippingTotal;
         this.shippingTax = shippingTax;
         this.cartTax = cartTax;
         this.total = total;
