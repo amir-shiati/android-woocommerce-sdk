@@ -6,18 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.amirshiati.androidwoocommercesdk.WooSDK;
-import com.amirshiati.androidwoocommercesdk.enums.Order;
-import com.amirshiati.androidwoocommercesdk.enums.OrderBy;
-import com.amirshiati.androidwoocommercesdk.interfaces.OnGetAttributeFinished;
-import com.amirshiati.androidwoocommercesdk.interfaces.OnGetAttributesFinished;
-import com.amirshiati.androidwoocommercesdk.interfaces.OnGetCategoriesFinished;
-import com.amirshiati.androidwoocommercesdk.interfaces.OnGetCategoryFinished;
-import com.amirshiati.androidwoocommercesdk.interfaces.OnGetProductFinished;
-import com.amirshiati.androidwoocommercesdk.interfaces.OnGetProductsFinished;
-import com.amirshiati.androidwoocommercesdk.model.Attribute;
-import com.amirshiati.androidwoocommercesdk.model.Category;
-import com.amirshiati.androidwoocommercesdk.model.Image;
-import com.amirshiati.androidwoocommercesdk.model.Product;
+import com.amirshiati.androidwoocommercesdk.interfaces.OnGetOrdersFinished;
+import com.amirshiati.androidwoocommercesdk.model.Order;
 
 import java.util.ArrayList;
 
@@ -35,6 +25,22 @@ public class MainActivity extends AppCompatActivity {
                 "cs_key",
                 "domain"
         );
+
+//        wooSDK.getOrders()
+//                .addGetOrdersCallBack(new OnGetOrdersFinished() {
+//                    @Override
+//                    public void onSuccess(ArrayList<Order> orders) {
+//                        for (Order order : orders)
+//                            Log.i(TAG, "order id : " + order.getId());
+//                    }
+//
+//                    @Override
+//                    public void onFail(String message) {
+//                        Log.i(TAG, "error");
+//                        Log.i(TAG, message);
+//                    }
+//                })
+//                .start();
 
 //        wooSDK.getAttributes(1)
 //                .addGetAttributeCallBack(new OnGetAttributeFinished() {
@@ -88,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 //                .setExclude(new int[200])
 //                .setExclude(new int[]{201})
 //                .setParent(323)
-//                .setOrder(Order.DESC)
+//                .setOrderSort(OrderSort.DESC)
 //                .hideEmpty(true)
 //                .addGetCategoriesCallBack(new OnGetCategoriesFinished() {
 //                    @Override

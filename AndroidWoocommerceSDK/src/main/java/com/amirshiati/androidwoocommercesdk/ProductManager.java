@@ -1,9 +1,8 @@
 package com.amirshiati.androidwoocommercesdk;
 
 import android.net.Uri;
-import android.util.Log;
 
-import com.amirshiati.androidwoocommercesdk.enums.Order;
+import com.amirshiati.androidwoocommercesdk.enums.OrderSort;
 import com.amirshiati.androidwoocommercesdk.enums.OrderBy;
 import com.amirshiati.androidwoocommercesdk.enums.ProductManagerType;
 import com.amirshiati.androidwoocommercesdk.enums.ProductStatus;
@@ -37,7 +36,7 @@ public class ProductManager {
     private int page = 1;
     private int perPage = 10;
     private String search = "";
-    private Order order;
+    private OrderSort orderSort;
     private OrderBy orderBy;
     private Integer offset;
     private String slug;
@@ -187,8 +186,8 @@ public class ProductManager {
         return this;
     }
 
-    public ProductManager setOrder(Order order) {
-        this.order = order;
+    public ProductManager setOrderSort(OrderSort orderSort) {
+        this.orderSort = orderSort;
         return this;
     }
 
@@ -229,8 +228,8 @@ public class ProductManager {
         if (!Utils.stringEmpty(productManager.search))
             productManager.builder.appendQueryParameter("search", productManager.search);
 
-        if (productManager.order != null)
-            productManager.builder.appendQueryParameter("order", Utils.setBuilderOrder(productManager.order));
+        if (productManager.orderSort != null)
+            productManager.builder.appendQueryParameter("orderSort", Utils.setBuilderOrder(productManager.orderSort));
 
         if (productManager.orderBy != null)
             productManager.builder.appendQueryParameter("orderby", Utils.setBuilderOrderBy(productManager.orderBy));

@@ -84,4 +84,29 @@ public class UriBuilder {
 
         return builder;
     }
+
+    public static Uri.Builder getOrders(String domainName) {
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("https")
+                .authority(domainName)
+                .appendPath("wp-json")
+                .appendPath("wc")
+                .appendPath("v3")
+                .appendPath("orders");
+
+        return builder;
+    }
+
+    public static Uri.Builder getOrder(String domainName, long id) {
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("https")
+                .authority(domainName)
+                .appendPath("wp-json")
+                .appendPath("wc")
+                .appendPath("v3")
+                .appendPath("orders")
+                .appendPath(String.valueOf(id));
+
+        return builder;
+    }
 }

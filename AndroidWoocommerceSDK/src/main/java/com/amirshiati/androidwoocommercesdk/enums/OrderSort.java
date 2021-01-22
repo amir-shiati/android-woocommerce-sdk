@@ -1,6 +1,6 @@
 package com.amirshiati.androidwoocommercesdk.enums;
 
-public enum Order {
+public enum OrderSort {
 
     ASC,
     DESC

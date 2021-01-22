@@ -1,17 +1,15 @@
 package com.amirshiati.androidwoocommercesdk.helper;
 
-import android.net.Uri;
-
 import com.amirshiati.androidwoocommercesdk.enums.CategoryOrderBy;
-import com.amirshiati.androidwoocommercesdk.enums.Order;
+import com.amirshiati.androidwoocommercesdk.enums.OrderSort;
 import com.amirshiati.androidwoocommercesdk.enums.OrderBy;
+import com.amirshiati.androidwoocommercesdk.enums.OrderStatus;
 import com.amirshiati.androidwoocommercesdk.enums.ProductStatus;
 import com.amirshiati.androidwoocommercesdk.enums.ProductStockStatus;
 import com.amirshiati.androidwoocommercesdk.enums.ProductType;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class Utils {
@@ -36,8 +34,8 @@ public class Utils {
         return str == null || str.equals("") || str.isEmpty() || str.length() <= 0;
     }
 
-    public static String setBuilderOrder(Order order) {
-        switch (order) {
+    public static String setBuilderOrder(OrderSort orderSort) {
+        switch (orderSort) {
             case ASC:
                 return "asc";
 
@@ -103,6 +101,37 @@ public class Utils {
 
             case DRAFT:
                 return "draft";
+
+            default:
+                return "any";
+        }
+    }
+
+    public static String setBuilderOrderStatus(OrderStatus status){
+        switch (status) {
+            case PROCESSING:
+                return "processing";
+
+            case ONHOLD:
+                return "on-hold";
+
+            case COMPLETED:
+                return "completed";
+
+            case CANCELLED:
+                return "cancelled";
+
+            case REFUNDED:
+                return "refunded";
+
+            case FAILED:
+                return "failed";
+
+            case TRASH:
+                return "trash";
+
+            case PENDING:
+                return "pending";
 
             default:
                 return "any";

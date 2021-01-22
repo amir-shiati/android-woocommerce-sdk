@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.amirshiati.androidwoocommercesdk.enums.AttributeManagerType;
 import com.amirshiati.androidwoocommercesdk.enums.CategoryManagerType;
+import com.amirshiati.androidwoocommercesdk.enums.OrderManageType;
 import com.amirshiati.androidwoocommercesdk.enums.ProductManagerType;
 import com.amirshiati.androidwoocommercesdk.helper.ProductJsonConverter;
 import com.amirshiati.androidwoocommercesdk.helper.UriBuilder;
@@ -62,6 +63,14 @@ public class WooSDK {
 
     public AttributeManager getAttributes(long attributeId) {
         return new AttributeManager(UriBuilder.getAttribute(domainName, attributeId), AttributeManagerType.GETATTRIBUTE, volley);
+    }
+
+    public OrderManager getOrders() {
+        return new OrderManager(UriBuilder.getOrders(domainName), OrderManageType.GETORDERS, volley);
+    }
+
+    public OrderManager getOrder(long orderId) {
+        return new OrderManager(UriBuilder.getOrder(domainName, orderId), OrderManageType.GETORDER, volley);
     }
 
 }

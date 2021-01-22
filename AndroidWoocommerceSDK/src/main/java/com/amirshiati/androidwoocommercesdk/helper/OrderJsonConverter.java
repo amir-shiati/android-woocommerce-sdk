@@ -23,7 +23,7 @@ import static com.amirshiati.androidwoocommercesdk.helper.ProductJsonConverter.j
 
 public class OrderJsonConverter {
 
-    public static Order jsonObjectToOrder(JSONObject toConvert) throws JSONException {
+    public static Order jsonToOrder(JSONObject toConvert) throws JSONException {
         return new Order(
                 getLong(toConvert, "id"),
                 getLong(toConvert, "parent_id"),

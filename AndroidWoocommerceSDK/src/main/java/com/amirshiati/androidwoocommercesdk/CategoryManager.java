@@ -1,15 +1,11 @@
 package com.amirshiati.androidwoocommercesdk;
 
 import android.net.Uri;
-import android.util.Log;
 
 import com.amirshiati.androidwoocommercesdk.enums.CategoryManagerType;
 import com.amirshiati.androidwoocommercesdk.enums.CategoryOrderBy;
-import com.amirshiati.androidwoocommercesdk.enums.Order;
-import com.amirshiati.androidwoocommercesdk.enums.OrderBy;
-import com.amirshiati.androidwoocommercesdk.enums.ProductManagerType;
+import com.amirshiati.androidwoocommercesdk.enums.OrderSort;
 import com.amirshiati.androidwoocommercesdk.helper.CategoryJsonConverter;
-import com.amirshiati.androidwoocommercesdk.helper.ProductJsonConverter;
 import com.amirshiati.androidwoocommercesdk.helper.Utils;
 import com.amirshiati.androidwoocommercesdk.helper.Volley;
 import com.amirshiati.androidwoocommercesdk.interfaces.OnGetCategoriesFinished;
@@ -37,7 +33,7 @@ public class CategoryManager {
     private int page = 1;
     private int perPage = 10;
     private String search;
-    private Order order;
+    private OrderSort orderSort;
     private CategoryOrderBy orderBy;
     private Boolean hideEmpty;
     private Long parent;
@@ -77,8 +73,8 @@ public class CategoryManager {
         return this;
     }
 
-    public CategoryManager setOrder(Order order) {
-        this.order = order;
+    public CategoryManager setOrderSort(OrderSort orderSort) {
+        this.orderSort = orderSort;
         return this;
     }
 
@@ -144,8 +140,8 @@ public class CategoryManager {
         if (!Utils.stringEmpty(categoryManager.search))
             categoryManager.builder.appendQueryParameter("search", categoryManager.search);
 
-        if (categoryManager.order != null)
-            categoryManager.builder.appendQueryParameter("order", Utils.setBuilderOrder(categoryManager.order));
+        if (categoryManager.orderSort != null)
+            categoryManager.builder.appendQueryParameter("orderSort", Utils.setBuilderOrder(categoryManager.orderSort));
 
         if (categoryManager.orderBy != null)
             categoryManager.builder.appendQueryParameter("orderby", Utils.setBuilderCategoryOrderBy(categoryManager.orderBy));
