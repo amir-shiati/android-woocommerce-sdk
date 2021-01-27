@@ -52,9 +52,30 @@ Step 2. Add the dependency
                 })
 
                 .start();
-
-    }
 ```
+### To get a list of orders:
+```java
+        wooSDK.getOrders()
+                .setPage(1)
+                .setPerPage(100)
+                .setOrderBy(OrderBy.DATE)
+                .setInclude(new int[102])
+                .setExclude(new int[22])
+                .addGetOrdersCallBack(new OnGetOrdersFinished() {
+                    @Override
+                    public void onSuccess(ArrayList<Order> orders) {
+                        for (Order order : orders)
+                            Log.i(TAG, "order id : " + order.getId());
+                    }
+
+                    @Override
+                    public void onFail(String message) {
+                        Log.i(TAG, message);
+                    }
+                })
+                .start();
+```
+
 
 ### To get a list of categories:
 ```java
@@ -80,4 +101,20 @@ Step 2. Add the dependency
                 })
                 .start();
 ```
+### To get a list of Attributes:
+```java
+        wooSDK.getAttributes()
+                .addGetAttributesCallBack(new OnGetAttributesFinished() {
+                    @Override
+                    public void onSuccess(ArrayList<Attribute> attributes) {
+                        for (Attribute attribute : attributes)
+                            Log.i(TAG, attribute.getName());
+                    }
 
+                    @Override
+                    public void onFail(String message) {
+                        Log.i(TAG, message);
+                    }
+                })
+                .start();
+```
