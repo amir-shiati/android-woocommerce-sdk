@@ -1,4 +1,4 @@
-package com.amirshiati.androidwoocommercesdk.helper;
+package com.amirshiati.androidwoocommercesdk.json;
 
 import com.amirshiati.androidwoocommercesdk.enums.ProductBackOrdered;
 import com.amirshiati.androidwoocommercesdk.enums.ProductCatalogVisibility;
@@ -6,6 +6,7 @@ import com.amirshiati.androidwoocommercesdk.enums.ProductStatus;
 import com.amirshiati.androidwoocommercesdk.enums.ProductStockStatus;
 import com.amirshiati.androidwoocommercesdk.enums.ProductType;
 import com.amirshiati.androidwoocommercesdk.enums.TaxStatus;
+import com.amirshiati.androidwoocommercesdk.helper.Utils;
 import com.amirshiati.androidwoocommercesdk.model.ProductAttribute;
 import com.amirshiati.androidwoocommercesdk.model.Category;
 import com.amirshiati.androidwoocommercesdk.model.DefaultAttribute;

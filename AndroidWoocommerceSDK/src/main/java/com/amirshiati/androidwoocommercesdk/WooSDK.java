@@ -7,19 +7,12 @@ import com.amirshiati.androidwoocommercesdk.enums.AttributeManagerType;
 import com.amirshiati.androidwoocommercesdk.enums.CategoryManagerType;
 import com.amirshiati.androidwoocommercesdk.enums.OrderManageType;
 import com.amirshiati.androidwoocommercesdk.enums.ProductManagerType;
-import com.amirshiati.androidwoocommercesdk.helper.ProductJsonConverter;
+import com.amirshiati.androidwoocommercesdk.handler.OrderHandler;
 import com.amirshiati.androidwoocommercesdk.helper.UriBuilder;
+import com.amirshiati.androidwoocommercesdk.helper.UriBuilderSingleton;
 import com.amirshiati.androidwoocommercesdk.helper.Volley;
-import com.amirshiati.androidwoocommercesdk.interfaces.OnGetJsonArrayFinished;
-import com.amirshiati.androidwoocommercesdk.interfaces.OnGetProductsFinished;
-import com.amirshiati.androidwoocommercesdk.model.Product;
-import com.android.volley.Request;
-import com.android.volley.VolleyError;
-
-import org.json.JSONArray;
-
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
+import com.amirshiati.androidwoocommercesdk.interfaces.OnResponse;
+import com.amirshiati.androidwoocommercesdk.interfaces.ParamBuilder;
 
 public class WooSDK {
 
@@ -31,6 +24,7 @@ public class WooSDK {
     private int timeOut = 10000;
 
     private Volley volley;
+    private UriBuilderSingleton uriBuilderSingleton;
 
     public WooSDK(Context context, String ckKey, String csKey, String domainName) {
         this.context = context;
@@ -39,6 +33,7 @@ public class WooSDK {
         this.domainName = domainName;
 
         volley = new Volley(context, ckKey, csKey, timeOut);
+        uriBuilderSingleton = UriBuilderSingleton.getInstance(domainName);
     }
 
     public ProductManager getProducts() {
@@ -65,12 +60,14 @@ public class WooSDK {
         return new AttributeManager(UriBuilder.getAttribute(domainName, attributeId), AttributeManagerType.GETATTRIBUTE, volley);
     }
 
-    public OrderManager getOrders() {
-        return new OrderManager(UriBuilder.getOrders(domainName), OrderManageType.GETORDERS, volley);
+    public void getOrder(long id, OnResponse onResponse) {
+        OrderHandler orderHandler = new OrderHandler(uriBuilderSingleton, volley);
+        orderHandler.get(id, onResponse);
     }
 
-    public OrderManager getOrder(long orderId) {
-        return new OrderManager(UriBuilder.getOrder(domainName, orderId), OrderManageType.GETORDER, volley);
+    public void getOrders(ParamBuilder paramBuilder, OnResponse onResponse) {
+        OrderHandler orderHandler = new OrderHandler(uriBuilderSingleton, volley);
+        orderHandler.getList(paramBuilder, onResponse);
     }
 
 }

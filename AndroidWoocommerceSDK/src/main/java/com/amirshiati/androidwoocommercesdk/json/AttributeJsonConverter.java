@@ -1,4 +1,4 @@
-package com.amirshiati.androidwoocommercesdk.helper;
+package com.amirshiati.androidwoocommercesdk.json;
 
 import com.amirshiati.androidwoocommercesdk.enums.AttributeOrderBy;
 import com.amirshiati.androidwoocommercesdk.model.Attribute;
@@ -6,8 +6,8 @@ import com.amirshiati.androidwoocommercesdk.model.Attribute;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static com.amirshiati.androidwoocommercesdk.helper.ProductJsonConverter.getLong;
-import static com.amirshiati.androidwoocommercesdk.helper.ProductJsonConverter.getString;
+import static com.amirshiati.androidwoocommercesdk.json.ProductJsonConverter.getLong;
+import static com.amirshiati.androidwoocommercesdk.json.ProductJsonConverter.getString;
 
 public class AttributeJsonConverter {
     public static Attribute jsonToAttribute(JSONObject toConvert) throws JSONException {

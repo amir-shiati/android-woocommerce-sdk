@@ -5,7 +5,7 @@ import android.net.Uri;
 import com.amirshiati.androidwoocommercesdk.enums.CategoryManagerType;
 import com.amirshiati.androidwoocommercesdk.enums.CategoryOrderBy;
 import com.amirshiati.androidwoocommercesdk.enums.OrderSort;
-import com.amirshiati.androidwoocommercesdk.helper.CategoryJsonConverter;
+import com.amirshiati.androidwoocommercesdk.json.CategoryJsonConverter;
 import com.amirshiati.androidwoocommercesdk.helper.Utils;
 import com.amirshiati.androidwoocommercesdk.helper.Volley;
 import com.amirshiati.androidwoocommercesdk.interfaces.OnGetCategoriesFinished;

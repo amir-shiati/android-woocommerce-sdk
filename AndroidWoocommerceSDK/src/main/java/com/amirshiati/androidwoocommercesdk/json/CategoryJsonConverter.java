@@ -1,16 +1,17 @@
-package com.amirshiati.androidwoocommercesdk.helper;
+package com.amirshiati.androidwoocommercesdk.json;
 
 
 
 import com.amirshiati.androidwoocommercesdk.enums.CategoryDisplay;
+import com.amirshiati.androidwoocommercesdk.helper.Utils;
 import com.amirshiati.androidwoocommercesdk.model.Category;
 import com.amirshiati.androidwoocommercesdk.model.Image;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static com.amirshiati.androidwoocommercesdk.helper.ProductJsonConverter.getLong;
-import static com.amirshiati.androidwoocommercesdk.helper.ProductJsonConverter.getString;
+import static com.amirshiati.androidwoocommercesdk.json.ProductJsonConverter.getLong;
+import static com.amirshiati.androidwoocommercesdk.json.ProductJsonConverter.getString;
 
 public class CategoryJsonConverter {
     public static Category jsonToCategory(JSONObject toConvert) throws JSONException {

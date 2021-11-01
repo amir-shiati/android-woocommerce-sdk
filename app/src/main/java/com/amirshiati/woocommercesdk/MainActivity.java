@@ -6,7 +6,11 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.amirshiati.androidwoocommercesdk.WooSDK;
-import com.amirshiati.androidwoocommercesdk.interfaces.OnGetOrdersFinished;
+import com.amirshiati.androidwoocommercesdk.builder.OrderBuilder;
+import com.amirshiati.androidwoocommercesdk.enums.OrderStatus;
+import com.amirshiati.androidwoocommercesdk.helper.UriBuilderSingleton;
+import com.amirshiati.androidwoocommercesdk.interfaces.OnResponse;
+import com.amirshiati.androidwoocommercesdk.interfaces.ParamBuilder;
 import com.amirshiati.androidwoocommercesdk.model.Order;
 
 import java.util.ArrayList;
@@ -26,21 +30,35 @@ public class MainActivity extends AppCompatActivity {
                 "domain"
         );
 
-//        wooSDK.getOrders()
-//                .addGetOrdersCallBack(new OnGetOrdersFinished() {
-//                    @Override
-//                    public void onSuccess(ArrayList<Order> orders) {
-//                        for (Order order : orders)
-//                            Log.i(TAG, "order id : " + order.getId());
-//                    }
-//
-//                    @Override
-//                    public void onFail(String message) {
-//                        Log.i(TAG, "error");
-//                        Log.i(TAG, message);
-//                    }
-//                })
-//                .start();
+
+        wooSDK.getOrder(843, new OnResponse() {
+            @Override
+            public void onSuccess(Object object) {
+                Order order = (Order) object;
+                Log.i(TAG, String.valueOf(order.getId()));
+            }
+
+            @Override
+            public void onFail(String err) {
+
+            }
+        });
+
+        ParamBuilder paramBuilder = new OrderBuilder().exclude(new int[]{843});
+
+        wooSDK.getOrders(paramBuilder, new OnResponse() {
+            @Override
+            public void onSuccess(Object object) {
+                ArrayList<Order> orders = (ArrayList<Order>) object;
+                for (Order order : orders)
+                    Log.i(TAG, String.valueOf(order.getId()));
+            }
+
+            @Override
+            public void onFail(String err) {
+
+            }
+        });
 
 //        wooSDK.getAttributes(1)
 //                .addGetAttributeCallBack(new OnGetAttributeFinished() {

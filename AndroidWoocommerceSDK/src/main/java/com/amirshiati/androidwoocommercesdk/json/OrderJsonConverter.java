@@ -1,6 +1,7 @@
-package com.amirshiati.androidwoocommercesdk.helper;
+package com.amirshiati.androidwoocommercesdk.json;
 
 import com.amirshiati.androidwoocommercesdk.enums.OrderStatus;
+import com.amirshiati.androidwoocommercesdk.helper.Utils;
 import com.amirshiati.androidwoocommercesdk.model.Order;
 import com.amirshiati.androidwoocommercesdk.model.OrderBilling;
 import com.amirshiati.androidwoocommercesdk.model.OrderCouponLine;
@@ -17,9 +18,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static com.amirshiati.androidwoocommercesdk.helper.ProductJsonConverter.getLong;
-import static com.amirshiati.androidwoocommercesdk.helper.ProductJsonConverter.getString;
-import static com.amirshiati.androidwoocommercesdk.helper.ProductJsonConverter.jsonToProduct;
+import static com.amirshiati.androidwoocommercesdk.json.ProductJsonConverter.getLong;
+import static com.amirshiati.androidwoocommercesdk.json.ProductJsonConverter.getString;
 
 public class OrderJsonConverter {
 

@@ -1,5 +1,7 @@
 package com.amirshiati.androidwoocommercesdk.helper;
 
+import android.util.Log;
+
 import com.amirshiati.androidwoocommercesdk.enums.CategoryOrderBy;
 import com.amirshiati.androidwoocommercesdk.enums.OrderSort;
 import com.amirshiati.androidwoocommercesdk.enums.OrderBy;
@@ -7,7 +9,9 @@ import com.amirshiati.androidwoocommercesdk.enums.OrderStatus;
 import com.amirshiati.androidwoocommercesdk.enums.ProductStatus;
 import com.amirshiati.androidwoocommercesdk.enums.ProductStockStatus;
 import com.amirshiati.androidwoocommercesdk.enums.ProductType;
+import com.android.volley.VolleyError;
 
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -107,7 +111,7 @@ public class Utils {
         }
     }
 
-    public static String setBuilderOrderStatus(OrderStatus status){
+    public static String setBuilderOrderStatus(OrderStatus status) {
         switch (status) {
             case PROCESSING:
                 return "processing";
@@ -178,5 +182,19 @@ public class Utils {
             url += ("&" + key + "[" + (i++) + "]" + "=" + (ids[j]) + "");
 
         return url;
+    }
+
+    public static String getVolleyErrorBody(VolleyError error) {
+        error.printStackTrace();
+        String body = "";
+        //String statusCode = String.valueOf(error.networkResponse.statusCode);
+        if (error.networkResponse.data != null) {
+            try {
+                body = new String(error.networkResponse.data, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+        return body;
     }
 }

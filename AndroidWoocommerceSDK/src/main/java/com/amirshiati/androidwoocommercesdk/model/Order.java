@@ -45,6 +45,10 @@ public class Order implements Serializable {
     private ArrayList<OrderCouponLine> couponLines;
     private ArrayList<OrderRefund> refunds;
 
+    public Order(long id) {
+        this.id = id;
+    }
+
     public Order(long id, long parentId, String number, String orderKey, String createdVia, String version, OrderStatus status, String currency, Date dateCreated, Date dateModified, String discountTotal, String discountTax, String shippingTotal, String shippingTax, String cartTax, String total, String totalTax, boolean pricesIncludeTax, long customerId, String customerIpAddress, String customerUserAgent, String customerNote, OrderBilling billing, OrderShipping shipping, String paymentMethod, String paymentMethodTitle, String transactionId, Date datePaid, Date dateCompleted, String cartHash, ArrayList<OrderLineItem> lineItems, ArrayList<OrderTax> taxLines, ArrayList<OrderShippingLine> shippingLines, ArrayList<OrderFeeLines> feeLines, ArrayList<OrderCouponLine> couponLines, ArrayList<OrderRefund> refunds) {
         this.id = id;
         this.parentId = parentId;

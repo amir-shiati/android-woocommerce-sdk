@@ -8,7 +8,7 @@ import com.amirshiati.androidwoocommercesdk.enums.ProductManagerType;
 import com.amirshiati.androidwoocommercesdk.enums.ProductStatus;
 import com.amirshiati.androidwoocommercesdk.enums.ProductStockStatus;
 import com.amirshiati.androidwoocommercesdk.enums.ProductType;
-import com.amirshiati.androidwoocommercesdk.helper.ProductJsonConverter;
+import com.amirshiati.androidwoocommercesdk.json.ProductJsonConverter;
 import com.amirshiati.androidwoocommercesdk.helper.Utils;
 import com.amirshiati.androidwoocommercesdk.helper.Volley;
 import com.amirshiati.androidwoocommercesdk.interfaces.OnGetJsonArrayFinished;

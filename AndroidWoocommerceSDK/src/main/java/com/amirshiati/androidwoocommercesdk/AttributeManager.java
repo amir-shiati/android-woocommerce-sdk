@@ -3,18 +3,13 @@ package com.amirshiati.androidwoocommercesdk;
 import android.net.Uri;
 
 import com.amirshiati.androidwoocommercesdk.enums.AttributeManagerType;
-import com.amirshiati.androidwoocommercesdk.enums.AttributeOrderBy;
-import com.amirshiati.androidwoocommercesdk.enums.CategoryManagerType;
-import com.amirshiati.androidwoocommercesdk.helper.AttributeJsonConverter;
-import com.amirshiati.androidwoocommercesdk.helper.CategoryJsonConverter;
-import com.amirshiati.androidwoocommercesdk.helper.Utils;
+import com.amirshiati.androidwoocommercesdk.json.AttributeJsonConverter;
 import com.amirshiati.androidwoocommercesdk.helper.Volley;
 import com.amirshiati.androidwoocommercesdk.interfaces.OnGetAttributeFinished;
 import com.amirshiati.androidwoocommercesdk.interfaces.OnGetAttributesFinished;
 import com.amirshiati.androidwoocommercesdk.interfaces.OnGetJsonArrayFinished;
 import com.amirshiati.androidwoocommercesdk.interfaces.OnGetJsonObjectFinished;
 import com.amirshiati.androidwoocommercesdk.model.Attribute;
-import com.amirshiati.androidwoocommercesdk.model.Category;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 
