@@ -7,11 +7,13 @@ import android.util.Log;
 
 import com.amirshiati.androidwoocommercesdk.WooSDK;
 import com.amirshiati.androidwoocommercesdk.builder.OrderBuilder;
+import com.amirshiati.androidwoocommercesdk.builder.ProductBuilder;
 import com.amirshiati.androidwoocommercesdk.enums.OrderStatus;
 import com.amirshiati.androidwoocommercesdk.helper.UriBuilderSingleton;
 import com.amirshiati.androidwoocommercesdk.interfaces.OnResponse;
 import com.amirshiati.androidwoocommercesdk.interfaces.ParamBuilder;
 import com.amirshiati.androidwoocommercesdk.model.Order;
+import com.amirshiati.androidwoocommercesdk.model.Product;
 
 import java.util.ArrayList;
 
@@ -52,6 +54,36 @@ public class MainActivity extends AppCompatActivity {
                 ArrayList<Order> orders = (ArrayList<Order>) object;
                 for (Order order : orders)
                     Log.i(TAG, String.valueOf(order.getId()));
+            }
+
+            @Override
+            public void onFail(String err) {
+
+            }
+        });
+
+
+        wooSDK.getProduct(841, new OnResponse() {
+            @Override
+            public void onSuccess(Object object) {
+                Product product = (Product) object;
+                Log.i(TAG, product.getName());
+            }
+
+            @Override
+            public void onFail(String err) {
+
+            }
+        });
+
+        ProductBuilder productBuilder = new ProductBuilder().perPage(100);
+
+        wooSDK.getProducts(productBuilder, new OnResponse() {
+            @Override
+            public void onSuccess(Object object) {
+                ArrayList<Product> products = (ArrayList<Product>) object;
+                for (Product product : products)
+                    Log.i(TAG, String.valueOf(product.getName()));
             }
 
             @Override
@@ -129,41 +161,6 @@ public class MainActivity extends AppCompatActivity {
 //                })
 //                .start();
 
-//        wooSDK.getProducts()
-//                .setPage(1)
-//                .setPerPage(100)
-//                .featured(true)
-//                .addGetProductsCallBack(new OnGetProductsFinished() {
-//                    @Override
-//                    public void onSuccess(ArrayList<Product> products) {
-//                        for (Product product : products)
-//                            Log.i(TAG, product.getName());
-//                    }
-//
-//                    @Override
-//                    public void onFail(String message) {
-//                        Log.i(TAG, "error");
-//                        Log.i(TAG, message);
-//                    }
-//                })
-//
-//                .start();
-
-//        wooSDK.getProduct(494)
-//                .addGetProductCallBack(new OnGetProductFinished() {
-//                    @Override
-//                    public void onSuccess(Product product) {
-//                        for (Image image : product.getImages())
-//                            Log.i(TAG, image.getSrc());
-//                    }
-//
-//                    @Override
-//                    public void onFail(String message) {
-//                        Log.i(TAG, "error");
-//                        Log.i(TAG, message);
-//                    }
-//                })
-//                .start();
 
     }
 }
