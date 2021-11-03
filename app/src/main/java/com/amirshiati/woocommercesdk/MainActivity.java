@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.amirshiati.androidwoocommercesdk.WooSDK;
+import com.amirshiati.androidwoocommercesdk.builder.CategoryBuilder;
 import com.amirshiati.androidwoocommercesdk.builder.OrderBuilder;
 import com.amirshiati.androidwoocommercesdk.builder.ProductBuilder;
 import com.amirshiati.androidwoocommercesdk.enums.OrderStatus;
 import com.amirshiati.androidwoocommercesdk.helper.UriBuilderSingleton;
 import com.amirshiati.androidwoocommercesdk.interfaces.OnResponse;
 import com.amirshiati.androidwoocommercesdk.interfaces.ParamBuilder;
+import com.amirshiati.androidwoocommercesdk.model.Category;
 import com.amirshiati.androidwoocommercesdk.model.Order;
 import com.amirshiati.androidwoocommercesdk.model.Product;
 
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ProductBuilder productBuilder = new ProductBuilder().perPage(100);
+        ProductBuilder productBuilder = new ProductBuilder().perPage(5);
 
         wooSDK.getProducts(productBuilder, new OnResponse() {
             @Override
@@ -92,6 +94,33 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        wooSDK.getCategory(172, new OnResponse() {
+            @Override
+            public void onSuccess(Object object) {
+                Category category = (Category) object;
+                Log.i(TAG, category.getName());
+            }
+
+            @Override
+            public void onFail(String err) {
+
+            }
+        });
+
+        CategoryBuilder categoryBuilder = new CategoryBuilder().setPerPage(100);
+        wooSDK.getCategories(categoryBuilder, new OnResponse() {
+            @Override
+            public void onSuccess(Object object) {
+                ArrayList<Category> categories = (ArrayList<Category>) object;
+                for (Category category : categories)
+                    Log.i(TAG, String.valueOf(category.getName()));
+            }
+
+            @Override
+            public void onFail(String err) {
+
+            }
+        });
 //        wooSDK.getAttributes(1)
 //                .addGetAttributeCallBack(new OnGetAttributeFinished() {
 //                    @Override
@@ -122,45 +151,6 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 //                })
 //                .start();
-
-//        wooSDK.getCategory(191)
-//                .addGetCategoryCallBack(new OnGetCategoryFinished() {
-//                    @Override
-//                    public void onSuccess(Category category) {
-//                        Log.i(TAG, category.getName());
-//                    }
-//
-//                    @Override
-//                    public void onFail(String message) {
-//                        Log.i(TAG, "error");
-//                        Log.i(TAG, message);
-//                    }
-//                })
-//                .start();
-
-//        wooSDK.getCategories()
-//                .setPage(1)
-//                .setPerPage(100)
-//                .setExclude(new int[200])
-//                .setExclude(new int[]{201})
-//                .setParent(323)
-//                .setOrderSort(OrderSort.DESC)
-//                .hideEmpty(true)
-//                .addGetCategoriesCallBack(new OnGetCategoriesFinished() {
-//                    @Override
-//                    public void onSuccess(ArrayList<Category> categories) {
-//                        for (Category category : categories)
-//                            Log.i(TAG, category.getName());
-//                    }
-//
-//                    @Override
-//                    public void onFail(String message) {
-//                        Log.i(TAG, "error");
-//                        Log.i(TAG, message);
-//                    }
-//                })
-//                .start();
-
 
     }
 }
