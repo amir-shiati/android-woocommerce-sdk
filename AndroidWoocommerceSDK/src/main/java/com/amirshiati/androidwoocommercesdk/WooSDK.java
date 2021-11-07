@@ -7,6 +7,7 @@ import com.amirshiati.androidwoocommercesdk.enums.AttributeManagerType;
 import com.amirshiati.androidwoocommercesdk.enums.CategoryManagerType;
 import com.amirshiati.androidwoocommercesdk.enums.OrderManageType;
 import com.amirshiati.androidwoocommercesdk.enums.ProductManagerType;
+import com.amirshiati.androidwoocommercesdk.handler.AttributeHandler;
 import com.amirshiati.androidwoocommercesdk.handler.CategoryHandler;
 import com.amirshiati.androidwoocommercesdk.handler.OrderHandler;
 import com.amirshiati.androidwoocommercesdk.handler.ProductHandler;
@@ -36,15 +37,6 @@ public class WooSDK {
 
         volley = new Volley(context, ckKey, csKey, timeOut);
         uriBuilderSingleton = UriBuilderSingleton.getInstance(domainName);
-    }
-
-
-    public AttributeManager getAttributes() {
-        return new AttributeManager(UriBuilder.getAttributes(domainName), AttributeManagerType.GETATTRIBUTES, volley);
-    }
-
-    public AttributeManager getAttributes(long attributeId) {
-        return new AttributeManager(UriBuilder.getAttribute(domainName, attributeId), AttributeManagerType.GETATTRIBUTE, volley);
     }
 
     public void getProduct(long id, OnResponse onResponse) {
@@ -77,5 +69,16 @@ public class WooSDK {
         CategoryHandler categoryHandler = new CategoryHandler(uriBuilderSingleton, volley);
         categoryHandler.getList(paramBuilder, onResponse);
     }
+
+    public void getAttribute(long id, OnResponse onResponse) {
+        AttributeHandler attributeHandler = new AttributeHandler(uriBuilderSingleton, volley);
+        attributeHandler.get(id, onResponse);
+    }
+
+    public void getAttributes(ParamBuilder paramBuilder, OnResponse onResponse) {
+        AttributeHandler attributeHandler = new AttributeHandler(uriBuilderSingleton, volley);
+        attributeHandler.getList(paramBuilder, onResponse);
+    }
+
 
 }

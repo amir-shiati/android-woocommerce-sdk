@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
                 "domain"
         );
 
-
         wooSDK.getOrder(843, new OnResponse() {
             @Override
             public void onSuccess(Object object) {
@@ -121,36 +120,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-//        wooSDK.getAttributes(1)
-//                .addGetAttributeCallBack(new OnGetAttributeFinished() {
-//                    @Override
-//                    public void onSuccess(Attribute attribute) {
-//                        Log.i(TAG, attribute.getName());
-//                    }
-//
-//                    @Override
-//                    public void onFail(String message) {
-//                        Log.i(TAG, "error");
-//                        Log.i(TAG, message);
-//                    }
-//                })
-//                .start();
-
-//        wooSDK.getAttributes()
-//                .addGetAttributesCallBack(new OnGetAttributesFinished() {
-//                    @Override
-//                    public void onSuccess(ArrayList<Attribute> attributes) {
-//                        for (Attribute attribute : attributes)
-//                            Log.i(TAG, attribute.getName());
-//                    }
-//
-//                    @Override
-//                    public void onFail(String message) {
-//                        Log.i(TAG, "error");
-//                        Log.i(TAG, message);
-//                    }
-//                })
-//                .start();
 
     }
 }
