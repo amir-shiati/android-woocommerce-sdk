@@ -9,6 +9,8 @@ import com.amirshiati.androidwoocommercesdk.WooSDK;
 import com.amirshiati.androidwoocommercesdk.builder.CategoryBuilder;
 import com.amirshiati.androidwoocommercesdk.builder.OrderBuilder;
 import com.amirshiati.androidwoocommercesdk.builder.ProductBuilder;
+import com.amirshiati.androidwoocommercesdk.enums.OrderBy;
+import com.amirshiati.androidwoocommercesdk.enums.OrderSort;
 import com.amirshiati.androidwoocommercesdk.enums.OrderStatus;
 import com.amirshiati.androidwoocommercesdk.helper.UriBuilderSingleton;
 import com.amirshiati.androidwoocommercesdk.interfaces.OnResponse;
@@ -47,7 +49,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ParamBuilder paramBuilder = new OrderBuilder().exclude(new int[]{843});
+        ParamBuilder paramBuilder = new OrderBuilder()
+                .page(1)
+                .perPage(100)
+                .orderBy(OrderBy.DATE)
+                .include(new int[]{102})
+                .exclude(new int[]{22});
 
         wooSDK.getOrders(paramBuilder, new OnResponse() {
             @Override
@@ -59,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFail(String err) {
-
+                Log.i(TAG, err);
             }
         });
 
@@ -77,7 +84,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ProductBuilder productBuilder = new ProductBuilder().perPage(5);
+        ProductBuilder productBuilder = new ProductBuilder()
+                .page(3)
+                .perPage(25)
+                .search("Hoodie")
+                .orderSort(OrderSort.ASC)
+                .orderBy(OrderBy.SLUG);
 
         wooSDK.getProducts(productBuilder, new OnResponse() {
             @Override
@@ -89,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFail(String err) {
-
+                Log.i(TAG, err);
             }
         });
 
@@ -106,7 +118,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        CategoryBuilder categoryBuilder = new CategoryBuilder().setPerPage(100);
+        CategoryBuilder categoryBuilder = new CategoryBuilder()
+                .setPage(1)
+                .setPerPage(100)
+                .setExclude(new int[200])
+                .setExclude(new int[]{201})
+                .setParent(323)
+                .setOrderSort(OrderSort.DESC)
+                .hideEmpty(true);
         wooSDK.getCategories(categoryBuilder, new OnResponse() {
             @Override
             public void onSuccess(Object object) {
@@ -117,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFail(String err) {
-
+                Log.i(TAG, err);
             }
         });
 

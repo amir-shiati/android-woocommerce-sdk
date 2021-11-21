@@ -1,9 +1,12 @@
 [![woocommerce android sdk](https://i.postimg.cc/g272TpwM/image-1.png "woocommerce android sdk")](https://i.postimg.cc/g272TpwM/image-1.png "woocommerce android sdk")
 
 [![](https://jitpack.io/v/amir-shiati/android-woocommerce-sdk.svg)](https://jitpack.io/#amir-shiati/android-woocommerce-sdk)
+
 # Implementation
+
 Step 1. Add the JitPack repository to your build file
 Add it in your root build.gradle at the end of repositories:
+
 ```bash
 	allprojects {
 		repositories {
@@ -13,14 +16,18 @@ Add it in your root build.gradle at the end of repositories:
 	}
 
 ```
+
 Step 2. Add the dependency
+
 ```bash
   implementation 'com.github.amir-shiati:android-woocommerce-sdk:lastes_version'
 
 ```
 
 # Usage
+
 ### Initialize WooSDK
+
 ```java
         WooSDK wooSDK = new WooSDK(
                 context,
@@ -29,92 +36,79 @@ Step 2. Add the dependency
                 "domain"
         );
 ```
+
 ### To get a list of products:
+
 ```java
-        wooSDK.getProducts()
-                .setPage(3)
-                .setPerPage(25)
+        ProductBuilder productBuilder = new ProductBuilder()
+                .page(3)
+                .perPage(25)
                 .search("Hoodie")
-                .setOrder(Order.ASC)
-                .setOrderBy(OrderBy.SLUG)
+                .orderSort(OrderSort.ASC)
+                .orderBy(OrderBy.SLUG);
 
-                .addCallBack(new OnGetProductsFinished() {
-                    @Override
-                    public void onSuccess(ArrayList<Product> products) {
-                        for (Product product : products)
-                            Log.i(TAG, product.getName());
-                    }
+        wooSDK.getProducts(productBuilder, new OnResponse() {
+            @Override
+            public void onSuccess(Object object) {
+                ArrayList<Product> products = (ArrayList<Product>) object;
+                for (Product product : products)
+                    Log.i(TAG, String.valueOf(product.getName()));
+            }
 
-                    @Override
-                    public void onFail(String message) {
-                        Log.i(TAG, message);
-                    }
-                })
-
-                .start();
+            @Override
+            public void onFail(String err) {
+                Log.i(TAG, err);
+            }
+        });
 ```
+
 ### To get a list of orders:
+
 ```java
-        wooSDK.getOrders()
-                .setPage(1)
-                .setPerPage(100)
-                .setOrderBy(OrderBy.DATE)
-                .setInclude(new int[102])
-                .setExclude(new int[22])
-                .addGetOrdersCallBack(new OnGetOrdersFinished() {
-                    @Override
-                    public void onSuccess(ArrayList<Order> orders) {
-                        for (Order order : orders)
-                            Log.i(TAG, "order id : " + order.getId());
-                    }
+        ParamBuilder paramBuilder = new OrderBuilder()
+                .page(1)
+                .perPage(100)
+                .orderBy(OrderBy.DATE)
+                .include(new int[]{102})
+                .exclude(new int[]{22});
 
-                    @Override
-                    public void onFail(String message) {
-                        Log.i(TAG, message);
-                    }
-                })
-                .start();
+        wooSDK.getOrders(paramBuilder, new OnResponse() {
+            @Override
+            public void onSuccess(Object object) {
+                ArrayList<Order> orders = (ArrayList<Order>) object;
+                for (Order order : orders)
+                    Log.i(TAG, String.valueOf(order.getId()));
+            }
+
+            @Override
+            public void onFail(String err) {
+                Log.i(TAG, err);
+            }
+        });
 ```
-
 
 ### To get a list of categories:
+
 ```java
-        wooSDK.getCategories()
+        CategoryBuilder categoryBuilder = new CategoryBuilder()
                 .setPage(1)
                 .setPerPage(100)
                 .setExclude(new int[200])
                 .setExclude(new int[]{201})
                 .setParent(323)
-                .setOrder(Order.DESC)
-                .hideEmpty(true)
-                .addGetCategoriesCallBack(new OnGetCategoriesFinished() {
-                    @Override
-                    public void onSuccess(ArrayList<Category> categories) {
-                        for (Category category : categories)
-                            Log.i(TAG, category.getName());
-                    }
+                .setOrderSort(OrderSort.DESC)
+                .hideEmpty(true);
+        wooSDK.getCategories(categoryBuilder, new OnResponse() {
+            @Override
+            public void onSuccess(Object object) {
+                ArrayList<Category> categories = (ArrayList<Category>) object;
+                for (Category category : categories)
+                    Log.i(TAG, String.valueOf(category.getName()));
+            }
 
-                    @Override
-                    public void onFail(String message) {
-                        Log.i(TAG, message);
-                    }
-                })
-                .start();
-```
-### To get a list of Attributes:
-```java
-        wooSDK.getAttributes()
-                .addGetAttributesCallBack(new OnGetAttributesFinished() {
-                    @Override
-                    public void onSuccess(ArrayList<Attribute> attributes) {
-                        for (Attribute attribute : attributes)
-                            Log.i(TAG, attribute.getName());
-                    }
-
-                    @Override
-                    public void onFail(String message) {
-                        Log.i(TAG, message);
-                    }
-                })
-                .start();
+            @Override
+            public void onFail(String err) {
+                Log.i(TAG, err);
+            }
+        });
 ```
